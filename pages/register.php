@@ -22,10 +22,15 @@ include "../includes/header.php";
                 ========================== -->
                 <div class="col-lg-6">
 
-                    <h1 class="display-3 fw-bold text-white">
-                        Welcome to
-                        <span class="brand-name">Jlook</span>
-                    </h1>
+                    <div class="hero-title">
+
+                        <h1 class="display-4 fw-bold text-white mb-0">
+                            Welcome to
+                        </h1>
+
+                        <img src="../assets/images/Jlook.png" alt="Jlook Logo" class="hero-logo">
+
+                    </div>
 
                     <p class="hero-text mt-4 mb-5">
                         Join Jlook and start exploring unforgettable
@@ -102,12 +107,8 @@ include "../includes/header.php";
 
                                     <i class="bi bi-person-fill input-icon"></i>
 
-                                    <input
-                                        type="text"
-                                        name="name"
-                                        class="form-control custom-input"
-                                        placeholder="Enter your name"
-                                        required>
+                                    <input type="text" name="name" class="form-control custom-input"
+                                        placeholder="Enter your name" required>
 
                                 </div>
 
@@ -124,12 +125,8 @@ include "../includes/header.php";
 
                                     <i class="bi bi-envelope-fill input-icon"></i>
 
-                                    <input
-                                        type="email"
-                                        name="email"
-                                        class="form-control custom-input"
-                                        placeholder="Enter your email"
-                                        required>
+                                    <input type="email" name="email" class="form-control custom-input"
+                                        placeholder="Enter your email" required>
 
                                 </div>
 
@@ -146,12 +143,8 @@ include "../includes/header.php";
 
                                     <i class="bi bi-key-fill input-icon"></i>
 
-                                    <input
-                                        type="password"
-                                        name="password"
-                                        class="form-control custom-input"
-                                        placeholder="Enter your password"
-                                        required>
+                                    <input type="password" name="password" class="form-control custom-input"
+                                        placeholder="Enter your password" required>
 
                                 </div>
 
@@ -168,20 +161,14 @@ include "../includes/header.php";
 
                                     <i class="bi bi-key-fill input-icon"></i>
 
-                                    <input
-                                        type="password"
-                                        name="confirm_password"
-                                        class="form-control custom-input"
-                                        placeholder="Confirm your password"
-                                        required>
+                                    <input type="password" name="confirm_password" class="form-control custom-input"
+                                        placeholder="Confirm your password" required>
 
                                 </div>
 
                             </div>
 
-                            <button
-                                type="submit"
-                                class="btn btn-primary w-100">
+                            <button type="submit" class="btn btn-primary w-100">
 
                                 Create Account
 
@@ -193,9 +180,7 @@ include "../includes/header.php";
 
                             Already have an account?
 
-                            <a
-                                href="login.php"
-                                class="signup-link fw-bold text-decoration-none">
+                            <a href="login.php" class="signup-link fw-bold text-decoration-none">
 
                                 Login
 

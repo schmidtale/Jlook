@@ -1,0 +1,63 @@
+.glass-navbar{
+
+    position: fixed;
+
+    top: 20px;
+
+    left: 50%;
+
+    transform: translateX(-50%);
+
+    width: 90%;
+
+    max-width: 1300px;
+
+    z-index: 1000;
+
+    background: rgba(255,255,255,.12);
+
+    border: 1px solid rgba(255,255,255,.20);
+
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+
+    border-radius: 18px;
+
+    padding: 12px 10px;
+
+    box-shadow: 0 10px 30px rgba(0,0,0,.15);
+
+}
+
+.navbar-brand img{
+    height:42px;
+}
+
+.nav-link{
+    color:white !important;
+    font-weight:500;
+    margin:0 12px;
+    transition:.3s;
+}
+
+.nav-link:hover{
+    color:#7EC8FF !important;
+}
+
+.nav-link.active{
+    color:#7EC8FF !important;
+}
+
+.login-btn{
+    background:#3B82F6;
+    color:white;
+    padding:10px 28px;
+    border-radius:50px;
+    text-decoration:none;
+    transition:.3s;
+}
+
+.login-btn:hover{
+    background:#2563EB;
+    color:white;
+}

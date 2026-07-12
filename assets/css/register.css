@@ -103,11 +103,36 @@
     box-shadow: none;
 
 }
+.hero-title{
 
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
 
+    margin-bottom: 10px;
 
-.brand-name{
-    color:#7EC8FF;
+}
+
+.hero-logo{
+
+    width: 220px;
+    max-width: 100%;
+    height: auto;
+
+    display: block;
+
+}
+
+.hero-text{
+
+    color: rgba(255,255,255,.8);
+
+    font-size: 18px;
+
+    max-width: 420px;
+
+    line-height: 1.8;
+
 }
 
 .hero-text{
@@ -219,5 +244,51 @@
 .login-link:hover{
 
     color:#7EC8FF;
+
+}
+
+/* ===========================
+   Tablet
+=========================== */
+
+@media (max-width:991px){
+
+    .hero-logo{
+
+        width:180px;
+
+    }
+
+    .display-4{
+
+        font-size:2.7rem;
+
+    }
+
+}
+
+/* ===========================
+   Mobile
+=========================== */
+
+@media (max-width:576px){
+
+    .hero-logo{
+
+        width:160px;
+
+    }
+
+    .display-4{
+
+        font-size:2.2rem;
+
+    }
+
+    .hero-text{
+
+        font-size:16px;
+
+    }
 
 }

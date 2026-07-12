@@ -23,11 +23,16 @@ include "../includes/header.php";
                      Left Side
                 ========================== -->
                 <div class="col-lg-6">
+                    <!-- Hero Title -->
+                    <div class="hero-title">
 
-                    <h1 class="display-3 fw-bold text-white">
-                        Welcome to
-                        <img src="../assets/images/Jlook.png" alt="Logo" class="hero-logo">
-                    </h1>
+                        <h1 class="display-4 fw-bold text-white mb-0">
+                            Welcome to
+                        </h1>
+
+                        <img src="../assets/images/Jlook.png" alt="Jlook Logo" class="hero-logo">
+
+                    </div>
 
                     <p class="hero-text mt-4 mb-5">
                         Discover unforgettable tours and activities
@@ -103,12 +108,8 @@ include "../includes/header.php";
 
                                     <i class="bi bi-envelope-fill input-icon"></i>
 
-                                    <input
-                                        type="email"
-                                        name="email"
-                                        class="form-control custom-input"
-                                        placeholder="Enter your email"
-                                        required>
+                                    <input type="email" name="email" class="form-control custom-input"
+                                        placeholder="Enter your email" required>
 
                                 </div>
 
@@ -125,12 +126,8 @@ include "../includes/header.php";
 
                                     <i class="bi bi-lock-fill input-icon"></i>
 
-                                    <input
-                                        type="password"
-                                        name="password"
-                                        class="form-control custom-input"
-                                        placeholder="Enter your password"
-                                        required>
+                                    <input type="password" name="password" class="form-control custom-input"
+                                        placeholder="Enter your password" required>
 
                                 </div>
 
@@ -148,14 +145,9 @@ include "../includes/header.php";
                             <!-- Remember Me -->
                             <div class="form-check mb-4">
 
-                                <input
-                                    class="form-check-input"
-                                    type="checkbox"
-                                    id="remember">
+                                <input class="form-check-input" type="checkbox" id="remember">
 
-                                <label
-                                    class="form-check-label text-white"
-                                    for="remember">
+                                <label class="form-check-label text-white" for="remember">
 
                                     Remember Me
 
@@ -164,9 +156,7 @@ include "../includes/header.php";
                             </div>
 
                             <!-- Login Button -->
-                            <button
-                                type="submit"
-                                class="btn btn-primary w-100">
+                            <button type="submit" class="btn btn-primary w-100">
 
                                 Login
 
@@ -179,9 +169,7 @@ include "../includes/header.php";
 
                             Don't have an account?
 
-                            <a
-                                href="register.php"
-                                class="signup-link fw-bold text-decoration-none">
+                            <a href="register.php" class="signup-link fw-bold text-decoration-none">
 
                                 Sign Up
 
