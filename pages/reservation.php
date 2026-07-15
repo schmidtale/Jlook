@@ -44,6 +44,7 @@ include "../includes/header.php";
                         </div>
                     </div>
 
+                    <!-- TODO: Show logged in users reservations -->
                     <div class="booking-list d-flex flex-column gap-4">
 
                         <div class="booking-card">
