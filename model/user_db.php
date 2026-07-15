@@ -2,7 +2,7 @@
 require_once 'database.php';
 function is_valid_user_login($username, $password) {
     global $db;
-    $query = 'SELECT * FROM users WHERE username = :username';
+    $query = 'SELECT * FROM users WHERE name = :username';
     $stmt = $db->prepare($query);
     $stmt->execute([':username' => $username]);
     $user = $stmt->fetch(PDO::FETCH_ASSOC);
