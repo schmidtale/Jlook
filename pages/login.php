@@ -1,6 +1,6 @@
 <?php
 
-$pageTitle = "Jlook | Login";
+$pageTitle = "Login";
 $pageCSS = "../assets/css/login.css";
 
 include "../includes/header.php";

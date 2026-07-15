@@ -1,21 +1,40 @@
-<nav class="navbar navbar-expand-lg glass-navbar">
-    <div class="container">
-        <a class="navbar-brand" href="../index.php">
-            <img src="../assets/images/Jlook.png" alt="Logo" height="38">
+<header class="top-navbar">
+
+    <!-- Logo -->
+    <a href="<?= $basePath ?>index.php" class="logo">
+
+        <img
+            src="<?= $basePath ?>assets/images/Jlook.png"
+            alt="Jlook Logo">
+
+    </a>
+
+    <!-- Center Menu -->
+    <nav class="glass-menu">
+
+        <a href="<?= $basePath ?>index.php" class="active">
+            Home
         </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMenu">
 
-            <span class="navbar-toggler-icon"></span>
+        <a href="<?= $basePath ?>pages/tours.php">
+            Tours
+        </a>
 
-        </button>
-        <div class="collapse navbar-collapse" id="navbarMenu">
-            <ul class="navbar-nav ms-auto">
-                <li class="nav-item">
-                    <a class="nav-link active" href="../index.php">
-                        Home
-                    </a>
-                </li>
-            </ul>
-        </div>
-    </div>
-</nav>
+        <a href="<?= $basePath ?>pages/favorites.php">
+            Favorites
+        </a>
+
+        <a href="<?= $basePath ?>pages/reservation.php">
+            My Reservation
+        </a>
+
+    </nav>
+
+    <!-- Login -->
+    <a href="<?= $basePath ?>pages/login.php" class="login-btn">
+
+        Login
+
+    </a>
+
+</header>
