@@ -175,7 +175,6 @@ include "includes/header.php";
 <!-- =========================
      Popular Tours
 ========================= -->
-
 <section class="popular-section">
 
     <div class="container">
@@ -185,23 +184,17 @@ include "includes/header.php";
             <div>
 
                 <span class="section-subtitle">
-
-                    Most Popular
-
+                    POPULAR DESTINATIONS
                 </span>
 
-                <h2>
-
+                <h2 class="section-title">
                     Popular Tours
-
                 </h2>
 
             </div>
 
             <a href="pages/tours.php" class="view-all">
-
                 View All →
-
             </a>
 
         </div>
@@ -209,12 +202,11 @@ include "includes/header.php";
         <div class="popular-grid">
 
             <!-- Card 1 -->
-
             <div class="tour-card">
 
                 <div class="tour-image">
 
-                    <img src="assets/images/tokyo-tower.png">
+                    <img src="assets/images/tokyo-tower.png" alt="Tokyo">
 
                     <button class="favorite-btn">
 
@@ -224,15 +216,7 @@ include "includes/header.php";
 
                 </div>
 
-                <div class="tour-body">
-
-                    <div class="tour-rating">
-
-                        ⭐ 4.9
-
-                        <span>(234 Reviews)</span>
-
-                    </div>
+                <div class="tour-info">
 
                     <h4>
 
@@ -241,6 +225,8 @@ include "includes/header.php";
                     </h4>
 
                     <p>
+
+                        <i class="bi bi-geo-alt-fill"></i>
 
                         Tokyo
 
@@ -252,13 +238,13 @@ include "includes/header.php";
 
                             <small>From</small>
 
-                            <h5>¥8,000</h5>
+                            <h3>¥8,000</h3>
 
                         </div>
 
                         <button class="book-btn">
 
-                            Book
+                            Book Now
 
                         </button>
 
@@ -273,6 +259,5 @@ include "includes/header.php";
     </div>
 
 </section>
-
 <!-- Footer -->
 <?php include "includes/footer.php"; ?>

@@ -1,3 +1,10 @@
+body{
+
+    background:#0B0B0B;
+
+    color:white;
+
+}
 .login-btn{
 
     background: linear-gradient(90deg,#3B82F6,#2563EB);
@@ -34,7 +41,10 @@
 }
 
 .hero{
+    padding-top:150px;
+    padding-bottom:120px;
     min-height:100vh;
+    background: transparent;
     background-image:url("../images/home-bg.png");
     background-size:cover;
     background-position:center;
@@ -384,7 +394,7 @@
 /* popular tour section */
 .popular-section{
     padding:120px 0;
-    background:#0F172A;
+    background: none;
 }
 
 .section-header
@@ -421,3 +431,170 @@
     gap:28px;
 }
 
+.popular-section
+{
+    padding: 120px 0;
+}
+
+.section-header{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:end;
+
+    margin-bottom:45px;
+
+}
+
+.section-subtitle{
+
+    color:#60A5FA;
+
+    letter-spacing:2px;
+
+    font-size:13px;
+
+    font-weight:600;
+
+}
+
+.section-title{
+
+    color:white;
+
+    font-size:42px;
+
+    margin-top:8px;
+
+    font-weight:700;
+
+}
+
+.view-all{
+
+    color:white;
+
+    text-decoration:none;
+
+}
+
+.tour-card{
+
+    background:rgba(255,255,255,.08);
+    border:1px solid rgba(255,255,255,.12);
+    backdrop-filter:blur(18px);
+    -webkit-backdrop-filter:blur(18px);
+    border-radius:24px;
+    overflow:hidden;
+    transition:.35s;
+}
+
+.tour-card:hover{
+    transform:translateY(-8px);
+    background:rgba(255,255,255,.12);
+    box-shadow:0 20px 45px rgba(0,0,0,.4);
+
+}
+
+.tour-image{
+
+    position:relative;
+
+}
+
+.tour-image img{
+
+    width:100%;
+
+    height:250px;
+
+    object-fit:cover;
+
+}
+
+.favorite-btn{
+
+    position:absolute;
+
+    top:18px;
+
+    right:18px;
+
+    width:42px;
+
+    height:42px;
+
+    border:none;
+
+    border-radius:50%;
+    color: white;
+    background:rgba(255,255,255,.15);
+    backdrop-filter:blur(12px);
+    cursor:pointer;
+
+}
+
+.tour-info{
+
+    padding:22px;
+
+}
+
+.tour-info h4{
+    color: white;
+    font-weight:700;
+    margin-bottom:10px;
+
+}
+
+.tour-info p{
+    color:rgba(255,255,255,.7);
+    margin-bottom:20px;
+
+}
+
+.tour-info p i{
+
+    color:#3B82F6;
+
+}
+
+.tour-footer{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+}
+
+.tour-footer h3{
+    margin:0;
+    color:white;
+    font-weight:700;
+}
+
+.tour-footer small{
+
+    color:#64748B;
+
+}
+
+.book-btn{
+    border:none;
+    border-radius:40px;
+
+    padding:10px 22px;
+    background:white;
+    color:#111;
+
+    font-weight:600;
+
+    transition:.3s;
+
+}
+
+.book-btn:hover{
+    background:#3B82F6;
+    color:white;
+}
