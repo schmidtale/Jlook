@@ -174,10 +174,103 @@ include "includes/header.php";
 
 <!-- =========================
      Popular Tours
-     (ทำต่อทีหลัง)
 ========================= -->
 
-<section class="popular-tours">
+<section class="popular-section">
+
+    <div class="container">
+
+        <div class="section-header">
+
+            <div>
+
+                <span class="section-subtitle">
+
+                    Most Popular
+
+                </span>
+
+                <h2>
+
+                    Popular Tours
+
+                </h2>
+
+            </div>
+
+            <a href="pages/tours.php" class="view-all">
+
+                View All →
+
+            </a>
+
+        </div>
+
+        <div class="popular-grid">
+
+            <!-- Card 1 -->
+
+            <div class="tour-card">
+
+                <div class="tour-image">
+
+                    <img src="assets/images/tokyo-tower.png">
+
+                    <button class="favorite-btn">
+
+                        <i class="bi bi-heart"></i>
+
+                    </button>
+
+                </div>
+
+                <div class="tour-body">
+
+                    <div class="tour-rating">
+
+                        ⭐ 4.9
+
+                        <span>(234 Reviews)</span>
+
+                    </div>
+
+                    <h4>
+
+                        Tokyo Tower Tour
+
+                    </h4>
+
+                    <p>
+
+                        Tokyo
+
+                    </p>
+
+                    <div class="tour-footer">
+
+                        <div>
+
+                            <small>From</small>
+
+                            <h5>¥8,000</h5>
+
+                        </div>
+
+                        <button class="book-btn">
+
+                            Book
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
 
 </section>
 
