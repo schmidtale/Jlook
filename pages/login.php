@@ -1,5 +1,6 @@
 <?php
 
+$basePath = "../";
 $pageTitle = "Login";
 $pageCSS = "../assets/css/login.css";
 
@@ -188,5 +189,3 @@ include "../includes/header.php";
     </div>
 
 </div>
-
-<?php include "../includes/footer.php"; ?>
