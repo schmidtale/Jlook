@@ -1,13 +1,20 @@
 CREATE DATABASE IF NOT EXISTS jlook;
 USE jlook;
 
+DROP TABLE IF EXISTS favorites;
+DROP TABLE IF EXISTS reservations;
+DROP TABLE IF EXISTS users;
+DROP TABLE IF EXISTS tours;
+
 CREATE TABLE IF NOT EXISTS tours (
     id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(150) NOT NULL,
     city VARCHAR(100) NOT NULL,
     price_yen INT NOT NULL,
     available_seats INT NOT NULL DEFAULT 0,
-    description TEXT
+    description TEXT,
+
+    CONSTRAINT chk_available_seats CHECK (available_seats >= 0)
 );
 
 CREATE TABLE IF NOT EXISTS users (
@@ -24,6 +31,7 @@ CREATE TABLE IF NOT EXISTS reservations (
     reservation_date DATE NOT NULL,
     number_of_guests INT NOT NULL,
     total_price_yen INT NOT NULL,
+    status ENUM('confirmed', 'completed', 'cancelled') NOT NULL DEFAULT 'confirmed',
 
     CONSTRAINT fk_reservations_tours FOREIGN KEY (tour_id) REFERENCES tours(id),
     CONSTRAINT fk_reservations_users FOREIGN KEY (user_id) REFERENCES users(id)
@@ -62,7 +70,7 @@ INSERT IGNORE INTO `tours` (`id`, `name`, `city`, `price_yen`, `available_seats`
 (22, 'Naha City Sightseeing', 'Okinawa', 7800, 28, 'Discover the fascinating cultural blend of Okinawa\'s vibrant capital city on this comprehensive sightseeing tour. Visit the majestic reconstructed Shuri Castle — the ancient seat of the Ryukyu Kingdom — browse the colorful arcades of Kokusai Street, and sample the island\'s unique cuisine including champuru and sata andagi donuts. Naha is unlike anywhere else in Japan.'),
 (23, 'Okinawa Beach Relaxation', 'Okinawa', 7500, 73, 'Okinawa\'s beaches are among the most beautiful in all of Asia — and this tour takes you to the finest white-sand shores with crystal-clear water that rivals the Caribbean. Spend a perfect day swimming, sunbathing, and exploring the pristine coastline with a guide who knows every secret cove and snorkeling spot. The ultimate tropical escape within Japan.'),
 (24, 'Snorkeling & Diving Tour', 'Okinawa', 5000, 32, 'Plunge beneath the surface of Okinawa\'s legendary coral seas and discover a world of jaw-dropping marine beauty. This expertly guided snorkeling and introductory diving tour takes you to vibrant coral gardens teeming with tropical fish, sea turtles, and dazzling underwater color. Full equipment provided, beginners warmly welcome — no experience needed to fall in love with the ocean.'),
-(25, 'Okinawa World Culture Park', 'Okinawa', 5000, 50, 'Explore 5,000 years of Ryukyu culture at Okinawa World — a fascinating open-air park featuring a traditional village, live Eisa dance performances, venomous snake shows, and the spectacular Gyokusendo Cave, one of Japan\'s longest limestone caverns. Hands-on, educational, and genuinely entertaining, this is the most immersive way to understand Okinawa\'s unique and captivating heritage.');
+(25, 'Okinawa World Culture Park', 'Okinawa', 5000, 50, 'Explore 5,000 years of Ryukyu culture at Okinawa World — a fascinating open-air park featuring a traditional village, live Eisa dance performances, venomous snake shows, and the spectacular Gyokusendo Cave, one of Japan\'s lowest limestone caverns. Hands-on, educational, and genuinely entertaining, this is the most immersive way to understand Okinawa\'s unique and captivating heritage.');
 
 INSERT IGNORE INTO users (name, email, password) VALUES
 ('Akari Takahashi', 'akari.t@example.com', '$2b$12$e0MYNfXqGgW1zM2K7B3uO.8hYf9hF6e7rC8tV9uW0xY1zZ2a3b4c5'),
@@ -86,54 +94,54 @@ INSERT IGNORE INTO users (name, email, password) VALUES
 ('Yuma Kimura', 'yuma.kimura@example.com', '$2b$12$e0MYNfXqGgW1zM2K7B3uO.8hYf9hF6e7rC8tV9uW0xY1zZ2a3b4c5'),
 ('Yuna Nakamura', 'yuna.nakamura@example.com', '$2b$12$e0MYNfXqGgW1zM2K7B3uO.8hYf9hF6e7rC8tV9uW0xY1zZ2a3b4c5');
 
-INSERT IGNORE INTO reservations (id, tour_id, user_id, reservation_date, number_of_guests, total_price_yen) VALUES
-(1, 1, 8, '2025-07-01', 2, 46000),
-(2, 5, 11, '2025-07-03', 4, 20000),
-(3, 7, 6, '2025-07-05', 1, 96000),
-(4, 12, 15, '2025-07-07', 3, 45000),
-(5, 16, 3, '2025-07-09', 2, 120000),
-(6, 22, 13, '2025-07-11', 5, 39000),
-(7, 2, 7, '2025-07-02', 1, 23000),
-(8, 6, 18, '2025-07-04', 6, 40000),
-(9, 9, 10, '2025-07-06', 2, 52000),
-(10, 14, 19, '2025-07-08', 1, 2400),
-(11, 18, 4, '2025-07-10', 3, 360000),
-(12, 24, 8, '2025-07-12', 4, 20000),
-(13, 3, 9, '2025-07-03', 5, 135000),
-(14, 8, 17, '2025-07-05', 2, 29000),
-(15, 11, 1, '2025-07-07', 3, 18000),
-(16, 15, 20, '2025-07-09', 1, 1500),
-(17, 20, 2, '2025-07-11', 4, 80000),
-(18, 25, 14, '2025-07-13', 2, 10000),
-(19, 4, 5, '2025-07-04', 2, 24000),
-(20, 10, 12, '2025-07-06', 1, 9500),
-(21, 13, 16, '2025-07-08', 3, 57000),
-(22, 17, 9, '2025-07-10', 5, 400000),
-(23, 21, 17, '2025-07-12', 2, 14600),
-(24, 23, 1, '2025-07-14', 6, 45000),
-(25, 1, 20, '2025-07-02', 3, 69000),
-(26, 5, 2, '2025-07-04', 2, 10000),
-(27, 7, 14, '2025-07-06', 4, 384000),
-(28, 12, 5, '2025-07-08', 1, 15000),
-(29, 16, 12, '2025-07-10', 5, 300000),
-(30, 22, 16, '2025-07-12', 2, 15600),
-(31, 2, 4, '2025-07-03', 4, 92000),
-(32, 6, 8, '2025-07-05', 3, 40000),
-(33, 9, 11, '2025-07-07', 1, 26000),
-(34, 14, 6, '2025-07-09', 2, 4800),
-(35, 18, 15, '2025-07-11', 6, 720000),
-(36, 24, 3, '2025-07-13', 3, 15000),
-(37, 3, 13, '2025-07-04', 2, 54000),
-(38, 8, 7, '2025-07-06', 4, 58000),
-(39, 11, 18, '2025-07-08', 5, 30000),
-(40, 15, 10, '2025-07-10', 3, 4500),
-(41, 20, 19, '2025-07-12', 1, 20000),
-(42, 25, 9, '2025-07-14', 5, 25000),
-(43, 4, 17, '2025-07-05', 3, 36000),
-(44, 10, 1, '2025-07-07', 2, 19000),
-(45, 13, 20, '2025-07-09', 4, 76000),
-(46, 17, 2, '2025-07-11', 1, 80000),
-(47, 21, 14, '2025-07-13', 3, 21900),
-(48, 23, 5, '2025-07-15', 2, 15000),
-(49, 1, 12, '2025-07-03', 4, 92000),
-(50, 5, 16, '2025-07-05', 1, 5000);
+INSERT IGNORE INTO reservations (id, tour_id, user_id, reservation_date, number_of_guests, total_price_yen, status) VALUES
+(1, 1, 8, '2025-07-01', 2, 46000, 'completed'),
+(2, 5, 11, '2025-07-03', 4, 20000, 'completed'),
+(3, 7, 6, '2025-07-05', 1, 96000, 'completed'),
+(4, 12, 15, '2025-07-07', 3, 45000, 'completed'),
+(5, 16, 3, '2025-07-09', 2, 120000, 'completed'),
+(6, 22, 13, '2025-07-11', 5, 39000, 'completed'),
+(7, 2, 7, '2025-07-02', 1, 23000, 'completed'),
+(8, 6, 18, '2025-07-04', 6, 40000, 'completed'),
+(9, 9, 10, '2025-07-06', 2, 52000, 'completed'),
+(10, 14, 19, '2025-07-08', 1, 2400, 'completed'),
+(11, 18, 4, '2025-07-10', 3, 360000, 'completed'),
+(12, 24, 8, '2025-07-12', 4, 20000, 'completed'),
+(13, 3, 9, '2025-07-03', 5, 135000, 'completed'),
+(14, 8, 17, '2025-07-05', 2, 29000, 'completed'),
+(15, 11, 1, '2025-07-07', 3, 18000, 'completed'),
+(16, 15, 20, '2025-07-09', 1, 1500, 'completed'),
+(17, 20, 2, '2025-07-11', 4, 80000, 'completed'),
+(18, 25, 14, '2025-07-13', 2, 10000, 'completed'),
+(19, 4, 5, '2025-07-04', 2, 24000, 'completed'),
+(20, 10, 12, '2025-07-06', 1, 9500, 'completed'),
+(21, 13, 16, '2025-07-08', 3, 57000, 'completed'),
+(22, 17, 9, '2025-07-10', 5, 400000, 'completed'),
+(23, 21, 17, '2025-07-12', 2, 14600, 'completed'),
+(24, 23, 1, '2025-07-14', 6, 45000, 'completed'),
+(25, 1, 20, '2025-07-02', 3, 69000, 'completed'),
+(26, 5, 2, '2025-07-04', 2, 10000, 'completed'),
+(27, 7, 14, '2025-07-06', 4, 384000, 'completed'),
+(28, 12, 5, '2025-07-08', 1, 15000, 'completed'),
+(29, 16, 12, '2025-07-10', 5, 300000, 'completed'),
+(30, 22, 16, '2025-07-12', 2, 15600, 'completed'),
+(31, 2, 4, '2025-07-03', 4, 92000, 'completed'),
+(32, 6, 8, '2025-07-05', 3, 40000, 'completed'),
+(33, 9, 11, '2025-07-07', 1, 26000, 'completed'),
+(34, 14, 6, '2025-07-09', 2, 4800, 'completed'),
+(35, 18, 15, '2025-07-11', 6, 720000, 'completed'),
+(36, 24, 3, '2025-07-13', 3, 15000, 'completed'),
+(37, 3, 13, '2025-07-04', 2, 54000, 'completed'),
+(38, 8, 7, '2025-07-06', 4, 58000, 'completed'),
+(39, 11, 18, '2025-07-08', 5, 30000, 'completed'),
+(40, 15, 10, '2025-07-10', 3, 4500, 'completed'),
+(41, 20, 19, '2025-07-12', 1, 20000, 'completed'),
+(42, 25, 9, '2025-07-14', 5, 25000, 'completed'),
+(43, 4, 17, '2025-07-05', 3, 36000, 'completed'),
+(44, 10, 1, '2025-07-07', 2, 19000, 'completed'),
+(45, 13, 20, '2025-07-09', 4, 76000, 'completed'),
+(46, 17, 2, '2025-07-11', 1, 80000, 'completed'),
+(47, 21, 14, '2025-07-13', 3, 21900, 'completed'),
+(48, 23, 5, '2025-07-15', 2, 15000, 'completed'),
+(49, 1, 12, '2025-07-03', 4, 92000, 'completed'),
+(50, 5, 16, '2025-07-05', 1, 5000, 'completed');
