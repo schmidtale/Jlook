@@ -29,3 +29,45 @@ function get_favorites($user_id) {
 
     return $favorites;
 }
+
+function search_favorites($user_id, $search_term = '', $sort_by = 'recent') {
+    global $db;
+
+    $query = 'SELECT t.*, f.user_id
+              FROM favorites f
+              INNER JOIN tours t ON f.tour_id = t.id
+              WHERE f.user_id = :user_id';
+
+    if (!empty($search_term)) {
+        $query .= ' AND (t.name LIKE :search
+                      OR t.city LIKE :search
+                      OR t.description LIKE :search)';
+    }
+
+    switch ($sort_by) {
+        case 'price_low_high':
+            $query .= ' ORDER BY t.price_yen ASC';
+            break;
+        case 'price_high_low':
+            $query .= ' ORDER BY t.price_yen DESC';
+            break;
+        case 'recent':
+        default:
+            $query .= ' ORDER BY t.id DESC';
+            break;
+    }
+
+    $statement = $db->prepare($query);
+    $statement->bindValue(':user_id', $user_id);
+
+    if (!empty($search_term)) {
+        $like_term = '%' . $search_term . '%';
+        $statement->bindValue(':search', $like_term);
+    }
+
+    $statement->execute();
+    $favorites = $statement->fetchAll(PDO::FETCH_ASSOC);
+    $statement->closeCursor();
+
+    return $favorites;
+}
