@@ -41,8 +41,8 @@ body{
 }
 
 .hero{
-    padding-top:150px;
-    padding-bottom:120px;
+    padding-top:100px;
+    padding-bottom:70px;
     min-height:100vh;
     background: transparent;
     background-image:url("../images/home-bg.png");
@@ -70,7 +70,7 @@ body{
 }
 
 .hero-content{
-    min-height:100vh;
+    min-height:80vh;
     display:flex;
     justify-content:space-between;
     align-items:center;
@@ -308,12 +308,12 @@ body{
 =========================== */
 
 .search-box{
-    margin-top:60px;
+    margin-top:20px;
     width:100%;
     display:flex;
     align-items:center;
     justify-content:space-between;
-    padding:25px 30px;
+    padding:40px 50px;
     border-radius:28px;
     background:rgba(255,255,255,.12);
     backdrop-filter:blur(20px);
@@ -393,7 +393,7 @@ body{
 
 /* popular tour section */
 .popular-section{
-    padding:120px 0;
+    padding:70px 0;
     background: none;
 }
 
@@ -499,17 +499,13 @@ body{
 }
 
 .tour-image{
-
     position:relative;
 
 }
 
 .tour-image img{
-
     width:100%;
-
-    height:250px;
-
+    height:180px;
     object-fit:cover;
 
 }
@@ -597,4 +593,100 @@ body{
 .book-btn:hover{
     background:#3B82F6;
     color:white;
+}
+
+.tour-location{
+
+    color:#bdbdbd;
+
+    margin-bottom:8px;
+
+}
+
+.tour-location i{
+
+    color:#4DA3FF;
+
+    margin-right:6px;
+
+}
+.tour-booked{
+    color:#bdbdbd;
+    margin-bottom:20px;
+}
+
+.tour-booked i{
+
+    color:#4DA3FF;
+
+    margin-right:6px;
+}
+
+/* budget section */
+.budget-section{
+    margin-bottom: 20px;
+    padding:10px 0;
+    background:transparent;
+}
+
+.budget-grid
+{
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+    gap: 30px;
+}
+
+.budget-card
+{
+    overflow: hidden;
+    border-radius:22px;
+    background:rgba(255,255,255,.08);
+    border:1px solid rgba(255,255,255,.12);
+    backdrop-filter:blur(18px);
+    transition:.3s;
+}
+.budget-card img{
+    width:100%;
+    height:180px;
+    object-fit:cover;
+    display:block;
+}
+
+.budget-card:hover{
+    transform:translateY(-8px);
+    background:rgba(255,255,255,.12);
+}
+
+.budget-body
+{
+    padding: 22px;
+}
+
+.discount-badge{
+    display:inline-block;
+    padding:6px 12px;
+    border-radius:50px;
+    background:#2563EB;
+    color:white;
+    font-size:12px;
+    font-weight:600;
+    margin-bottom:15px;
+}
+
+.price-row{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin:18px 0;
+}
+
+.old-price{
+    text-decoration:line-through;
+    color:#999;
+}
+
+.new-price{
+    color:white;
+    font-size:24px;
+    font-weight:700;
 }

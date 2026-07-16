@@ -171,7 +171,6 @@ include "includes/header.php";
     </div>
 
 </section>
-
 <!-- =========================
      Popular Tours
 ========================= -->
@@ -201,7 +200,7 @@ include "includes/header.php";
 
         <div class="popular-grid">
 
-            <!-- Card 1 -->
+            <!-- Tour Card -->
             <div class="tour-card">
 
                 <div class="tour-image">
@@ -209,9 +208,7 @@ include "includes/header.php";
                     <img src="assets/images/tokyo-tower.png" alt="Tokyo">
 
                     <button class="favorite-btn">
-
                         <i class="bi bi-heart"></i>
-
                     </button>
 
                 </div>
@@ -219,16 +216,22 @@ include "includes/header.php";
                 <div class="tour-info">
 
                     <h4>
-
                         Tokyo Tower Tour
-
                     </h4>
 
-                    <p>
+                    <p class="tour-location">
 
                         <i class="bi bi-geo-alt-fill"></i>
 
                         Tokyo
+
+                    </p>
+
+                    <p class="tour-booked">
+
+                        <i class="bi bi-people-fill"></i>
+
+                        245 Booked
 
                     </p>
 
@@ -249,6 +252,85 @@ include "includes/header.php";
                         </button>
 
                     </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+</section>
+
+<!-- =========================
+     Budget Friendly
+========================= -->
+
+<section class="budget-section">
+
+    <div class="container">
+
+        <div class="section-header">
+
+            <div>
+
+                <span class="section-subtitle">
+                    SAVE MORE
+                </span>
+
+                <h2 class="section-title">
+                    Budget-Friendly Tours
+                </h2>
+
+            </div>
+
+            <a href="pages/tours.php" class="view-all">
+                View All →
+            </a>
+
+        </div>
+
+        <div class="budget-grid">
+
+            <!-- Card -->
+
+            <div class="budget-card">
+
+                <img src="assets/images/2.png" alt="Osaka">
+
+                <div class="budget-body">
+
+                    <span class="discount-badge">
+                        SAVE 30%
+                    </span>
+
+                    <h4>Osaka City Tour</h4>
+
+                    <p>
+
+                        <i class="bi bi-geo-alt-fill"></i>
+
+                        Osaka
+
+                    </p>
+
+                    <div class="price-row">
+
+                        <span class="old-price">
+                            ¥10,000
+                        </span>
+
+                        <span class="new-price">
+                            ¥7,000
+                        </span>
+
+                    </div>
+
+                    <button class="book-btn">
+
+                        Book Now
+
+                    </button>
 
                 </div>
 

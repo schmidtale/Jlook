@@ -17,10 +17,13 @@
     <link rel="stylesheet"
         href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
-    <!-- Page CSS -->
-    <?php if (isset($pageCSS)): ?>
-        <link rel="stylesheet" href="<?= $pageCSS ?>">
-    <?php endif; ?>
+<!-- Global CSS -->
+<link rel="stylesheet" href="<?= $basePath ?>assets/css/style.css">
+
+<!-- Page CSS -->
+<?php if (isset($pageCSS)): ?>
+    <link rel="stylesheet" href="<?= $pageCSS ?>">
+<?php endif; ?>
 
 </head>
 
