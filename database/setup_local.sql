@@ -145,3 +145,17 @@ INSERT IGNORE INTO reservations (id, tour_id, user_id, reservation_date, number_
 (48, 23, 5, '2025-07-15', 2, 15000, 'completed'),
 (49, 1, 12, '2025-07-03', 4, 92000, 'completed'),
 (50, 5, 16, '2025-07-05', 1, 5000, 'completed');
+
+INSERT IGNORE INTO users (name, email, password) VALUES ('Test Admin', 'admin@jlook.com', '$2y$12$8xB1kVIoRoB715s.rEiQUOeYRKLtEznN9bYqieLU/B/PiFq4Q/aAS');
+
+-- Insert favorites for 'Test Admin' (user_id = 21)
+-- Tour IDs: 1 (Tokyo City Tour), 2 (Asakusa & Skytree), 3 (Ghibli Museum Visit)
+INSERT IGNORE INTO favorites (user_id, tour_id) VALUES
+(21, 1),
+(21, 2),
+(21, 3);
+
+INSERT IGNORE INTO reservations (tour_id, user_id, reservation_date, number_of_guests, total_price_yen, status) VALUES
+(12, 21, '2027-10-15', 3, 45000, 'confirmed'),  -- 3 guests * 15,000 yen
+(18, 21, '2028-01-20', 2, 240000, 'confirmed'), -- 2 guests * 120,000 yen
+(6,  21, '2028-05-12', 1, 40000, 'confirmed');   -- 1 guest * 40,000 yen

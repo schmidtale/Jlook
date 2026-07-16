@@ -58,15 +58,21 @@ body {
     font-weight: 600;
     border-radius: 20px;
     transition: 0.3s ease;
+    text-decoration: none !important;
+    cursor: pointer;
+    display: inline-block;
 }
 
-.btn-filter:hover {
-    color: white;
+.btn-filter:hover,
+.btn-filter:focus {
+    color: white !important;
+    text-decoration: none !important;
 }
 
 .btn-filter.active {
     background: #2563EB;
-    color: white;
+    color: white !important;
+    text-decoration: none !important;
     box-shadow: 0 4px 12px rgba(37, 99, 235, 0.35);
 }
 
@@ -126,12 +132,18 @@ body {
 
 /* Badge System */
 .badge {
-    display: inline-block;
-    padding: 4px 10px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px; /* Space between icons and uppercase text */
+    padding: 6px 12px;
     font-size: 10px;
     font-weight: 700;
     text-transform: uppercase;
     border-radius: 30px;
+}
+
+.badge i {
+    font-size: 11px; /* Slightly larger scale for the icons inside */
 }
 
 .badge-completed {

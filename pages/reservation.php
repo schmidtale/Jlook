@@ -1,19 +1,32 @@
 <?php
-
+session_start();
 $basePath = "../";
+
+if (!isset($_SESSION['user_id'])) {
+    header("Location: login.php");
+    exit();
+}
+
+require_once "../model/database.php";
+require_once "../model/reservation_db.php";
+$user_id = $_SESSION['user_id'];
+
+// Capture the currently selected status filter (Defaulting to 'confirmed')
+$current_status = filter_input(INPUT_GET, 'status', FILTER_DEFAULT) ?? 'confirmed';
+
+// Fetch user's actual reservations matching the filter
+$user_reservations = get_reservations($user_id, $current_status);
 
 $pageTitle = "Jlook | My Reservations";
 $pageCSS = "../assets/css/reservation.css";
 
 include "../includes/header.php";
-
 ?>
 
 <link rel="stylesheet" href="../assets/css/home.css">
 
 <?php include "../includes/navbar.php"; ?>
 
-<!-- Reservations Page -->
 <div class="reservations-page">
 
     <header class="page-banner">
@@ -39,130 +52,83 @@ include "../includes/header.php";
                         <h3 class="text-white fw-bold mb-0">My Reservations</h3>
 
                         <div class="status-filters">
-                            <button class="btn-filter active">Completed</button>
-                            <button class="btn-filter">Cancelled</button>
+                            <a href="?status=confirmed" class="btn-filter <?php echo $current_status === 'confirmed' ? 'active' : ''; ?>">Confirmed</a>
+                            <a href="?status=completed" class="btn-filter <?php echo $current_status === 'completed' ? 'active' : ''; ?>">Completed</a>
+                            <a href="?status=cancelled" class="btn-filter <?php echo $current_status === 'cancelled' ? 'active' : ''; ?>">Cancelled</a>
                         </div>
                     </div>
 
-                    <!-- TODO: Show logged in users reservations -->
                     <div class="booking-list d-flex flex-column gap-4">
+                        <?php if (!empty($user_reservations)): ?>
+                            <?php foreach ($user_reservations as $res): ?>
+                                <div class="booking-card">
+                                    <div class="row g-0 align-items-center">
+                                        <div class="col-md-4 col-lg-3">
+                                            <div class="booking-img-wrapper">
+                                                <img src="../assets/images/<?php echo htmlspecialchars($res['tour_id']); ?>.png"
+                                                     alt="<?php echo htmlspecialchars($res['name']); ?>"
+                                                     class="booking-img"
+                                                     onerror="this.src='../assets/images/1.png'">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-5 col-lg-6">
+                                            <div class="booking-details">
+                                                <?php if ($res['status'] === 'completed'): ?>
+                                                    <span class="badge badge-completed mb-2">
+                                                        <i class="bi bi-check-circle-fill"></i> Completed
+                                                    </span>
+                                                <?php elseif ($res['status'] === 'confirmed'): ?>
+                                                    <span class="badge badge-confirmed mb-2">
+                                                        <i class="bi bi-check-circle"></i> Confirmed
+                                                    </span>
+                                                <?php elseif ($res['status'] === 'cancelled'): ?>
+                                                    <span class="badge badge-cancelled mb-2">
+                                                        <i class="bi bi-x-circle-fill"></i> Cancelled
+                                                    </span>
+                                                <?php endif; ?>
 
-                        <div class="booking-card">
-                            <div class="row g-0 align-items-center">
-                                <div class="col-md-4 col-lg-3">
-                                    <div class="booking-img-wrapper">
-                                        <img src="../assets/images/tokyo-tower.png" alt="Mt. Fuji Day Trip" class="booking-img" onerror="this.src='../assets/images/1.png'">
-                                    </div>
-                                </div>
-                                <div class="col-md-5 col-lg-6">
-                                    <div class="booking-details">
-                                        <span class="badge badge-completed mb-2">Completed</span>
-                                        <h4 class="text-white fw-bold mb-2">Mt. Fuji Day Trip</h4>
-                                        <div class="details-meta d-flex flex-column gap-1">
-                                            <span class="meta-item"><i class="bi bi-geo-alt-fill me-2"></i>Yamanashi, Japan</span>
-                                            <span class="meta-item"><i class="bi bi-calendar3 me-2"></i>25 May 2026</span>
+                                                <h4 class="text-white fw-bold mb-2"><?php echo htmlspecialchars($res['name']); ?></h4>
+                                                <div class="details-meta d-flex flex-column gap-1">
+                                                    <span class="meta-item">
+                                                        <i class="bi bi-geo-alt-fill me-2"></i><?php echo htmlspecialchars($res['city']); ?>, Japan
+                                                    </span>
+                                                    <span class="meta-item">
+                                                        <i class="bi bi-calendar3 me-2"></i><?php echo date('d M Y', strtotime($res['reservation_date'])); ?>
+                                                    </span>
+                                                    <span class="meta-item">
+                                                        <i class="bi bi-people-fill me-2"></i>Guests: <?php echo htmlspecialchars($res['number_of_guests']); ?>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3 col-lg-3 text-md-end">
+                                            <div class="booking-price-action">
+                                                <div class="mb-3">
+                                                    <small class="price-label">Total Amount</small>
+                                                    <span class="price-amount">¥<?php echo number_format($res['total_price_yen']); ?></span>
+                                                </div>
+
+                                                <?php if ($res['status'] === 'confirmed'): ?>
+                                                    <form action="reservation_process.php" method="POST" onsubmit="return confirm('Are you sure you want to cancel this reservation?');">
+                                                        <input type="hidden" name="reservation_id" value="<?php echo $res['id']; ?>">
+                                                        <input type="hidden" name="action" value="cancel">
+                                                        <button type="submit" class="btn btn-action btn-outline-danger w-100">Cancel Tour</button>
+                                                    </form>
+                                                <?php else: ?>
+                                                    <a href="tour-details.php?id=<?php echo $res['tour_id']; ?>" class="btn btn-action w-100">Book Again</a>
+                                                <?php endif; ?>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-3 col-lg-3 text-md-end">
-                                    <div class="booking-price-action">
-                                        <div class="mb-3">
-                                            <small class="price-label">Total Amount</small>
-                                            <span class="price-amount">¥19,000</span>
-                                        </div>
-                                        <a href="#" class="btn btn-action">View Details</a>
-                                    </div>
-                                </div>
+                            <?php endforeach; ?>
+                        <?php else: ?>
+                            <div class="text-center py-5">
+                                <i class="bi bi-calendar-x text-muted" style="font-size: 3rem;"></i>
+                                <p class="mt-3 text-muted">No <?php echo htmlspecialchars($current_status); ?> reservations found.</p>
+                                <a href="../index.php" class="btn btn-primary mt-2">Find a Tour</a>
                             </div>
-                        </div>
-
-                        <div class="booking-card">
-                            <div class="row g-0 align-items-center">
-                                <div class="col-md-4 col-lg-3">
-                                    <div class="booking-img-wrapper">
-                                        <img src="../assets/images/tokyo-tower.png" alt="Kyoto Cultural Tour" class="booking-img" onerror="this.src='../assets/images/1.png'">
-                                    </div>
-                                </div>
-                                <div class="col-md-5 col-lg-6">
-                                    <div class="booking-details">
-                                        <span class="badge badge-confirmed mb-2">Confirmed</span>
-                                        <h4 class="text-white fw-bold mb-2">Kyoto Cultural Tour</h4>
-                                        <div class="details-meta d-flex flex-column gap-1">
-                                            <span class="meta-item"><i class="bi bi-geo-alt-fill me-2"></i>Kyoto, Japan</span>
-                                            <span class="meta-item"><i class="bi bi-calendar3 me-2"></i>10 June 2026</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-3 col-lg-3 text-md-end">
-                                    <div class="booking-price-action">
-                                        <div class="mb-3">
-                                            <small class="price-label">Total Amount</small>
-                                            <span class="price-amount">¥15,000</span>
-                                        </div>
-                                        <a href="#" class="btn btn-action">View Details</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="booking-card">
-                            <div class="row g-0 align-items-center">
-                                <div class="col-md-4 col-lg-3">
-                                    <div class="booking-img-wrapper">
-                                        <img src="../assets/images/tokyo-tower.png" alt="Tokyo Tower Tour" class="booking-img" onerror="this.src='../assets/images/1.png'">
-                                    </div>
-                                </div>
-                                <div class="col-md-5 col-lg-6">
-                                    <div class="booking-details">
-                                        <span class="badge badge-completed mb-2">Completed</span>
-                                        <h4 class="text-white fw-bold mb-2">Tokyo Tower Tour</h4>
-                                        <div class="details-meta d-flex flex-column gap-1">
-                                            <span class="meta-item"><i class="bi bi-geo-alt-fill me-2"></i>Tokyo, Japan</span>
-                                            <span class="meta-item"><i class="bi bi-calendar3 me-2"></i>20 April 2026</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-3 col-lg-3 text-md-end">
-                                    <div class="booking-price-action">
-                                        <div class="mb-3">
-                                            <small class="price-label">Total Amount</small>
-                                            <span class="price-amount">¥16,000</span>
-                                        </div>
-                                        <a href="#" class="btn btn-action">View Details</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="booking-card">
-                            <div class="row g-0 align-items-center">
-                                <div class="col-md-4 col-lg-3">
-                                    <div class="booking-img-wrapper">
-                                        <img src="../assets/images/tokyo-tower.png" alt="Osaka Castle Tour" class="booking-img" onerror="this.src='../assets/images/2.png'">
-                                    </div>
-                                </div>
-                                <div class="col-md-5 col-lg-6">
-                                    <div class="booking-details">
-                                        <span class="badge badge-cancelled mb-2">Cancelled</span>
-                                        <h4 class="text-white fw-bold mb-2">Osaka Castle & City Tour</h4>
-                                        <div class="details-meta d-flex flex-column gap-1">
-                                            <span class="meta-item"><i class="bi bi-geo-alt-fill me-2"></i>Osaka, Japan</span>
-                                            <span class="meta-item"><i class="bi bi-calendar3 me-2"></i>8 March 2026</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-3 col-lg-3 text-md-end">
-                                    <div class="booking-price-action">
-                                        <div class="mb-3">
-                                            <small class="price-label">Total Amount</small>
-                                            <span class="price-amount">¥13,600</span>
-                                        </div>
-                                        <a href="#" class="btn btn-action">View Details</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
+                        <?php endif; ?>
                     </div>
 
                     <p class="text-center text-white-50 mt-5 mb-0">

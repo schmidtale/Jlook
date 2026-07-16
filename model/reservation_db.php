@@ -42,7 +42,7 @@ function add_reservation($tour_id, $user_id, $reservation_date, $number_of_guest
 function get_reservations($user_id, $status = null) {
     global $db;
 
-    // Automatically update past "confirmed" reservations to "completed"
+    // 1. Automatically update past "confirmed" reservations to "completed"
     try {
         $update_query = 'UPDATE reservations
                          SET status = "completed"
@@ -57,14 +57,19 @@ function get_reservations($user_id, $status = null) {
         error_log("Failed to auto-complete past reservations: " . $e->getMessage());
     }
 
+    // 2. Fetch the reservations JOINED with the tours table
     if ($status !== null) {
-        $query = 'SELECT * FROM reservations
-                  WHERE user_id = :user_id AND status = :status
-                  ORDER BY id';
+        $query = 'SELECT r.*, t.name, t.city
+                  FROM reservations r
+                  INNER JOIN tours t ON r.tour_id = t.id
+                  WHERE r.user_id = :user_id AND r.status = :status
+                  ORDER BY r.id DESC';
     } else {
-        $query = 'SELECT * FROM reservations
-                  WHERE user_id = :user_id
-                  ORDER BY id';
+        $query = 'SELECT r.*, t.name, t.city
+                  FROM reservations r
+                  INNER JOIN tours t ON r.tour_id = t.id
+                  WHERE r.user_id = :user_id
+                  ORDER BY r.id DESC';
     }
 
     $statement = $db->prepare($query);
