@@ -13,6 +13,20 @@ function add_favorite($user_id, $tour_id) {
     $statement->closeCursor();
 }
 
+function remove_favorite($user_id, $tour_id) {
+    global $db;
+
+    $query = 'DELETE FROM favorites
+              WHERE user_id = :user_id AND tour_id = :tour_id';
+
+    $statement = $db->prepare($query);
+    $statement->bindValue(':user_id', $user_id);
+    $statement->bindValue(':tour_id', $tour_id);
+
+    $statement->execute();
+    $statement->closeCursor();
+}
+
 function get_favorites($user_id) {
     global $db;
 
