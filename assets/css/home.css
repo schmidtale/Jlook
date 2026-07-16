@@ -5,19 +5,30 @@ body{
     color:white;
 
 }
+
 .login-btn{
 
-    background: linear-gradient(90deg,#3B82F6,#2563EB);
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    padding:8px 22px;
+
+    border-radius:50px;
+
+    border:1px solid rgba(255,255,255,.18);
+
+    background:rgba(255,255,255,.08);
+
+    backdrop-filter:blur(15px);
 
     color:white;
 
     text-decoration:none;
 
-    padding:12px 28px;
-
-    border-radius:50px;
-
-    font-weight:600;
+    font-weight:500;
 
     transition:.3s;
 
@@ -25,18 +36,11 @@ body{
 
 .login-btn:hover{
 
+    background:rgba(255,255,255,.15);
+
     color:white;
 
     transform:translateY(-2px);
-
-    box-shadow:0 10px 20px rgba(37,99,235,.35);
-
-}
-
-.login-btn:hover{
-    transform:translateY(-2px);
-    color:white;
-    box-shadow:0 10px 20px rgba(37,99,235,.35);
 
 }
 

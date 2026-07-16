@@ -31,10 +31,68 @@
     </nav>
 
     <!-- Login -->
-    <a href="<?= $basePath ?>pages/login.php" class="login-btn">
+    <?php if(isset($_SESSION['user_id'])): ?>
 
-        Login
+<div class="dropdown">
 
-    </a>
+    <button
+        class="user-btn dropdown-toggle"
+        data-bs-toggle="dropdown">
+
+        <div class="user-avatar">
+
+            <?= strtoupper(substr($_SESSION['user_name'],0,1)); ?>
+
+        </div>
+
+        <span>
+
+            <?= htmlspecialchars($_SESSION['user_name']); ?>
+
+        </span>
+
+    </button>
+
+    <ul class="dropdown-menu dropdown-menu-end">
+
+        <li class="dropdown-header">
+
+            <?= htmlspecialchars($_SESSION['user_email']); ?>
+
+        </li>
+
+        <li>
+            <hr class="dropdown-divider">
+        </li>
+
+        <li>
+
+            <a
+                class="dropdown-item"
+                href="<?= $basePath ?>controller/logout.php">
+
+                <i class="bi bi-box-arrow-right me-2"></i>
+
+                Logout
+
+            </a>
+
+        </li>
+
+    </ul>
+
+</div>
+
+<?php else: ?>
+
+<a
+    href="<?= $basePath ?>pages/login.php"
+    class="login-btn">
+
+    Login
+
+</a>
+
+<?php endif; ?>
 
 </header>
