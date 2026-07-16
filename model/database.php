@@ -8,7 +8,7 @@
 $dsn = 'mysql:host=localhost;dbname=jlook';
 $username = 'root';
 $password = '';
-//$dsn      = 'mysql:host=172.21.82.206;dbname=jlook;charset=utf8';
+//$dsn      = 'mysql:host=172.21.82.206;dbname=group8;charset=utf8';
 //$username = 'group8';
 //$password = '6827';
 
