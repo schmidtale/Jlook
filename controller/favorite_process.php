@@ -20,5 +20,5 @@ if ($tour_id) {
     }
 }
 
-header("Location: favorites.php");
+header("Location: ../pages/favorites.php");
 exit();

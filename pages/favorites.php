@@ -70,8 +70,7 @@ include "../includes/header.php";
                                      alt="<?php echo htmlspecialchars($tour['name']); ?>"
                                      onerror="this.src='../assets/images/1.png'">
 
-                                <form action="favorite_process.php" method="POST" class="d-inline">
-                                    <input type="hidden" name="tour_id" value="<?php echo $tour['id']; ?>">
+                                <form action="<?php echo $basePath; ?>controller/favorite_process.php" method="POST" class="d-inline">                                    <input type="hidden" name="tour_id" value="<?php echo $tour['id']; ?>">
                                     <input type="hidden" name="action" value="remove">
                                     <button type="submit" class="fav-heart-btn" title="Remove from favorites">
                                         <i class="bi bi-heart-fill text-danger"></i>
