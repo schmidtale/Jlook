@@ -1,7 +1,7 @@
 <?php
 session_start();
 require_once "../model/database.php";
-require_once "../model/reservations_db.php";
+require_once "../model/reservation_db.php";
 
 if (!isset($_SESSION['user_id'])) {
     header("Location: ../pages/login.php");
@@ -16,13 +16,13 @@ if ($reservation_id && $action === 'cancel') {
     $success = cancel_reservation($reservation_id, $user_id);
 
     if ($success) {
-        header("Location: reservation.php?status=cancelled");
+        header("Location: ../pages/reservation.php?status=cancelled");
         exit();
     } else {
-        header("Location: reservation.php?status=confirmed&error=cancel_failed");
+        header("Location: ../pages/reservation.php?status=confirmed&error=cancel_failed");
         exit();
     }
 }
 
-header("Location: reservation.php");
+header("Location: ../pages/reservation.php");
 exit();

@@ -109,7 +109,7 @@ include "../includes/header.php";
                                                 </div>
 
                                                 <?php if ($res['status'] === 'confirmed'): ?>
-                                                    <form action="reservation_process.php" method="POST" onsubmit="return confirm('Are you sure you want to cancel this reservation?');">
+                                                    <form action="<?php echo $basePath; ?>controller/reservation_process.php" method="POST" onsubmit="return confirm('Are you sure you want to cancel this reservation?');">
                                                         <input type="hidden" name="reservation_id" value="<?php echo $res['id']; ?>">
                                                         <input type="hidden" name="action" value="cancel">
                                                         <button type="submit" class="btn btn-action btn-outline-danger w-100">Cancel Tour</button>
