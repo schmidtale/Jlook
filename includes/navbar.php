@@ -7,25 +7,29 @@
 
     </a>
 
-    <!-- Center Menu -->
-    <nav class="glass-menu">
+<!-- Center Menu -->
+<nav class="glass-menu">
+        <?php
 
-        <a href="<?= $basePath ?>index.php" class="active">
+        $current_page = basename($_SERVER['SCRIPT_NAME']);
+        ?>
+
+
+        <a href="<?= $basePath ?>index.php" class="<?= ($current_page == 'index.php') ? 'active' : '' ?>">
             Home
         </a>
 
-        <a href="<?= $basePath ?>pages/tours.php">
+        <a href="<?= $basePath ?>pages/tours.php" class="<?= ($current_page == 'tours.php') ? 'active' : '' ?>">
             Tours
         </a>
 
-        <a href="<?= $basePath ?>pages/favorites.php">
+        <a href="<?= $basePath ?>pages/favorites.php" class="<?= ($current_page == 'favorites.php') ? 'active' : '' ?>">
             Favorites
         </a>
 
-        <a href="<?= $basePath ?>pages/reservation.php">
+        <a href="<?= $basePath ?>pages/reservation.php" class="<?= ($current_page == 'reservation.php') ? 'active' : '' ?>">
             My Reservation
         </a>
-
     </nav>
 
     <!-- Login -->

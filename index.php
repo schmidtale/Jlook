@@ -305,8 +305,6 @@ if (isset($_SESSION['user_id'])) {
                             <i class="bi <?php echo $fav_icon; ?>"></i>
                         </button>
                     </form>
-
-                    <span class="tour-badge success">Popular</span>
                 </div>
 
                 <div class="tour-content">
