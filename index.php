@@ -272,15 +272,18 @@ $basePath = "";
             ?>
 
             <div class="tour-card">
-
                 <div class="tour-image">
-
                     <img src="assets/images/<?php echo $tour['image']; ?>" alt="<?php echo $tour['name']; ?>">
 
-                    <span class="tour-badge <?= $badgeClass ?>">
-                        <?= $badge ?>
-                    </span>
+                    <form action="controller/favorite_process.php" method="POST" class="d-inline">
+                        <input type="hidden" name="tour_id" value="<?php echo $tour['id']; ?>">
+                        <input type="hidden" name="action" value="add"> <!-- ส่ง action บอกว่าให้เพิ่ม (add) -->
+                        <button type="submit" class="fav-btn" title="Add to favorites">
+                            <i class="bi bi-heart"></i>
+                        </button>
+                    </form>
 
+                    <span class="tour-badge success">Popular</span>
                 </div>
 
                 <div class="tour-content">
@@ -351,13 +354,10 @@ $basePath = "";
         <div class="tour-grid">
             <?php foreach(array_slice($budget_tours, 0, 4) as $tour): ?>
             <?php
-            // 1. ดึงราคาปัจจุบัน (ราคาที่ลดแล้ว) จาก Database[cite: 1]
             $current_price = $tour['price_yen'];
             
-            // 2. คำนวณราคาเต็ม (สมมติว่าลดราคามา 30% ราคาเต็มจึงเป็นราคาปัจจุบันหารด้วย 0.7)
             $old_price = $current_price / 0.7;
             
-            // 3. จัดการเรื่องจำนวนที่นั่ง[cite: 1]
             $seat = $tour['available_seats'];
             if ($seat <= 5) {
                 $seatIcon = "bi-fire"; $seatText = "Only $seat Seats Left"; $seatColor = "#ff5a5f";
@@ -367,33 +367,33 @@ $basePath = "";
                 $seatIcon = "bi-people-fill"; $seatText = "$seat Seats Available"; $seatColor = "#38d996";
             }
             ?>
-            
+
             <div class="tour-card">
                 <div class="tour-image">
                     <img src="assets/images/<?php echo $tour['image']; ?>" alt="<?php echo $tour['name']; ?>">
-                    <!-- ปรับจาก Badge สถานะที่นั่ง เป็น Badge บอกเปอร์เซ็นต์ส่วนลดสีน้ำเงินเด่นๆ -->
+
+                    <form action="controller/favorite_process.php" method="POST" class="d-inline">
+                        <input type="hidden" name="tour_id" value="<?php echo $tour['id']; ?>">
+                        <input type="hidden" name="action" value="add"> 
+                        <button type="submit" class="fav-btn" title="Add to favorites">
+                            <i class="bi bi-heart"></i>
+                        </button>
+                    </form>
+
                     <span class="discount-badge">SAVE 30%</span>
                 </div>
-                
+
                 <div class="tour-content">
                     <span class="tour-city"><i class="bi bi-geo-alt-fill"></i> <?= $tour['city']; ?></span>
                     <h3><?= $tour['name']; ?></h3>
-                    
-                    <!-- ส่วนแสดงราคาเดิมเปรียบเทียบกับราคาใหม่ -->
+
                     <div class="price-row" style="margin: 15px 0 5px 0;">
-                        <span class="old-price" style="text-decoration: line-through; color: #999; font-size: 16px; margin-right: 10px;">
-                            ¥<?= number_format($old_price); ?>
-                        </span>
-                        <span class="new-price" style="color: #FFD369; font-size: 28px; font-weight: 700;">
-                            ¥<?= number_format($current_price); ?>
-                        </span>
-                        <span style="font-size: 14px; color: #bbb; font-weight: 500;">/ person</span>
+                        <span class="old-price"
+                            style="text-decoration: line-through; color: #999;">¥<?= number_format($old_price); ?></span>
+                        <span class="new-price"
+                            style="color: #FFD369; font-size: 28px; font-weight: 700;">¥<?= number_format($current_price); ?></span>
                     </div>
 
-                    <div class="seat-info" style="margin-top: 10px;">
-                        <i class="bi <?= $seatIcon ?>" style="color:<?= $seatColor ?>"></i> <span><?= $seatText ?></span>
-                    </div>
-                    
                     <button class="book-btn">Book Now</button>
                 </div>
             </div>

@@ -758,11 +758,14 @@ body{
     display: grid;
     grid-template-columns: repeat(4, 1fr); 
     gap: 20px; 
-    margin-top: 45px;
-    width: 100%;
+    margin-top: 20px;
 }
+
 .tour-content{
-    padding:24px;
+    padding:20px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
 }
 .tour-content h3{
 
@@ -842,25 +845,15 @@ body{
 
 }
 .book-btn{
-
     width:100%;
-
     margin-top:20px;
-
     border:none;
-
     padding:14px;
-
-    border-radius:50px;
-
+    border-radius:30px;
     background:#7EC8FF;
-
     color:#111;
-
     font-weight:700;
-
     transition:.3s;
-
 }
 .book-btn:hover{
 
@@ -875,17 +868,14 @@ body{
     font-size:14px;
 }
 .tour-card{
-
+    display: flex;
+    flex-direction: column;
+    height: 100%;
     background:rgba(255,255,255,.08);
-
     backdrop-filter:blur(18px);
-
     border:1px solid rgba(255,255,255,.15);
-
     border-radius:28px;
-
     overflow:hidden;
-
     transition:.35s;
 
 }
@@ -904,41 +894,44 @@ body{
 .tour-image{
     position:relative;
     overflow: hidden;
+    width: 100%;
+    height: 200px;
 }
 
 .tour-image img {
     width: 100%;
-    height: 200px;
+    height: 100%;
     object-fit: cover;
     transition: .35s;
 }
 
-.favorite-btn{
-
-    position:absolute;
-
-    top:18px;
-
-    right:18px;
-
-    width:42px;
-
-    height:42px;
-
-    border:none;
-
-    border-radius:50%;
-    color: white;
-    background:rgba(255,255,255,.15);
-    backdrop-filter:blur(12px);
-    cursor:pointer;
-
+.fav-btn {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.9); 
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ff4a5a; 
+    font-size: 16px;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    transition: all 0.2s ease;
+    z-index: 10; 
 }
 
+.fav-btn:hover {
+    background: #ff4a5a;
+    color: #ffffff;
+    transform: scale(1.1);
+}
 .tour-info{
-
     padding:22px;
-
 }
 
 .tour-info h4{
