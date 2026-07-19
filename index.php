@@ -4,6 +4,7 @@ require_once 'model/database.php';
 require_once 'model/tour_db.php';
 
 $tour_statement = get_tours();
+$budget_tours = get_budget_tours();
 $tours = $tour_statement->fetchAll(PDO::FETCH_ASSOC);
 $tour_statement->closeCursor();
 
@@ -12,8 +13,6 @@ $basePath = "";
 include "includes/header.php";
 
 $basePath = "";
-
-include "includes/header.php";
 
 ?>
 
@@ -132,22 +131,23 @@ include "includes/header.php";
 
         </div>
 
-        <div class="search-box">
+        <form class="search-box" action="pages/tours.php" method="GET">
 
             <div class="search-item">
 
                 <i class="bi bi-geo-alt-fill"></i>
 
-                <div>
+                <div class="search-input-group">
 
-                    <h6>Where to?</h6>
+                    <label>Where to?</label>
 
-                    <small>Destination, city or tour name</small>
+                    <input type="text" id="searchTour" name="search" placeholder="Destination, city or tour">
+
+                    <div id="searchSuggestion" class="search-suggestion"></div>
 
                 </div>
 
             </div>
-
             <div class="search-divider"></div>
 
             <div class="search-item">
@@ -156,9 +156,9 @@ include "includes/header.php";
 
                 <div>
 
-                    <h6>Check-in</h6>
+                    <label>Check-in</label>
 
-                    <small>Select date</small>
+                    <input type="date" name="date">
 
                 </div>
 
@@ -172,15 +172,27 @@ include "includes/header.php";
 
                 <div>
 
-                    <h6>Guests</h6>
+                    <label>Guests</label>
 
-                    <small>1 Guest</small>
+                    <select name="guest">
+
+                        <option value="1">1 Guest</option>
+
+                        <option value="2">2 Guests</option>
+
+                        <option value="3">3 Guests</option>
+
+                        <option value="4">4 Guests</option>
+
+                        <option value="5">5+ Guests</option>
+
+                    </select>
 
                 </div>
 
             </div>
 
-            <button class="search-btn">
+            <button type="submit" class="search-btn">
 
                 <i class="bi bi-search"></i>
 
@@ -188,14 +200,13 @@ include "includes/header.php";
 
             </button>
 
-        </div>
+        </form>
 
 </section>
 <!-- =========================
      Popular Tours
 ========================= -->
 <section class="popular-section">
-
     <div class="container">
 
         <div class="section-header">
@@ -212,137 +223,97 @@ include "includes/header.php";
 
             </div>
 
-            <a href="pages/tours.php" class="view-all">
-                View All →
+            <a href="pages/tours.php" class="view-all-btn">
+
+                View All
+                <i class="bi bi-arrow-right"></i>
+
             </a>
 
         </div>
 
-        <div class="popular-grid">
+        <div class="tour-grid">
 
-            <!-- Tour Card -->
+            <?php foreach(array_slice($tours, 0, 4) as $tour): ?>
+
+            <?php
+
+            $seat = $tour['available_seats'];
+
+            if ($seat <= 5) {
+
+                $seatIcon = "bi-fire";
+                $seatText = "Only $seat Seats Left";
+                $seatColor = "#ff5a5f";
+
+                $badge = "🔥 Almost Full";
+                $badgeClass = "danger";
+
+            } elseif ($seat <= 15) {
+
+                $seatIcon = "bi-exclamation-circle-fill";
+                $seatText = "$seat Seats Available";
+                $seatColor = "#ffb400";
+
+                $badge = "Limited";
+                $badgeClass = "warning";
+
+            } else {
+
+                $seatIcon = "bi-people-fill";
+                $seatText = "$seat Seats Available";
+                $seatColor = "#38d996";
+
+                $badge = "Available";
+                $badgeClass = "success";
+
+            }
+
+            ?>
+
             <div class="tour-card">
 
                 <div class="tour-image">
 
-                    <img src="assets/images/tokyo-tower.png" alt="Tokyo">
+                    <img src="assets/images/<?php echo $tour['image']; ?>" alt="<?php echo $tour['name']; ?>">
 
-                    <button class="favorite-btn">
-                        <i class="bi bi-heart"></i>
-                    </button>
+                    <span class="tour-badge <?= $badgeClass ?>">
+                        <?= $badge ?>
+                    </span>
 
                 </div>
 
-                <div class="tour-info">
+                <div class="tour-content">
 
-                    <h4>
-                        Tokyo Tower Tour
-                    </h4>
-
-                    <p class="tour-location">
+                    <span class="tour-city">
 
                         <i class="bi bi-geo-alt-fill"></i>
 
-                        Tokyo
+                        <?= $tour['city']; ?>
 
-                    </p>
+                    </span>
 
-                    <p class="tour-booked">
+                    <h3>
 
-                        <i class="bi bi-people-fill"></i>
+                        <?= $tour['name']; ?>
 
-                        245 Booked
+                    </h3>
 
-                    </p>
+                    <div class="tour-price">
 
-                    <div class="tour-footer">
+                        <i class="bi bi-cash-stack"></i>
 
-                        <div>
+                        ¥<?= number_format($tour['price_yen']); ?>
 
-                            <small>From</small>
-
-                            <h3>¥8,000</h3>
-
-                        </div>
-
-                        <button class="book-btn">
-
-                            Book Now
-
-                        </button>
+                        <span>/ person</span>
 
                     </div>
 
-                </div>
+                    <div class="seat-info">
 
-            </div>
+                        <i class="bi <?= $seatIcon ?>" style="color:<?= $seatColor ?>"></i>
 
-        </div>
-
-    </div>
-</section>
-
-<!-- =========================
-     Budget Friendly
-========================= -->
-
-<section class="budget-section">
-
-    <div class="container">
-
-        <div class="section-header">
-
-            <div>
-
-                <span class="section-subtitle">
-                    SAVE MORE
-                </span>
-
-                <h2 class="section-title">
-                    Budget-Friendly Tours
-                </h2>
-
-            </div>
-
-            <a href="pages/tours.php" class="view-all">
-                View All →
-            </a>
-
-        </div>
-
-        <div class="budget-grid">
-
-            <!-- Card -->
-
-            <div class="budget-card">
-
-                <img src="assets/images/2.png" alt="Osaka">
-
-                <div class="budget-body">
-
-                    <span class="discount-badge">
-                        SAVE 30%
-                    </span>
-
-                    <h4>Osaka City Tour</h4>
-
-                    <p>
-
-                        <i class="bi bi-geo-alt-fill"></i>
-
-                        Osaka
-
-                    </p>
-
-                    <div class="price-row">
-
-                        <span class="old-price">
-                            ¥10,000
-                        </span>
-
-                        <span class="new-price">
-                            ¥7,000
-                        </span>
+                        <span><?= $seatText ?></span>
 
                     </div>
 
@@ -356,15 +327,85 @@ include "includes/header.php";
 
             </div>
 
+            <?php endforeach; ?>
+
         </div>
 
     </div>
+</section>
+<!-- =========================
+     Budget Friendly
+========================= -->
+<section class="budget-section">
+    <div class="container">
+        <div class="section-header">
+            <div>
+                <span class="section-subtitle">SAVE MORE</span>
+                <h2 class="section-title">Budget-Friendly Tours</h2>
+            </div>
+            <a href="pages/tours.php" class="view-all-btn">
+                View All <i class="bi bi-arrow-right"></i>
+            </a>
+        </div>
 
+        <div class="tour-grid">
+            <?php foreach(array_slice($budget_tours, 0, 4) as $tour): ?>
+            <?php
+            // 1. ดึงราคาปัจจุบัน (ราคาที่ลดแล้ว) จาก Database[cite: 1]
+            $current_price = $tour['price_yen'];
+            
+            // 2. คำนวณราคาเต็ม (สมมติว่าลดราคามา 30% ราคาเต็มจึงเป็นราคาปัจจุบันหารด้วย 0.7)
+            $old_price = $current_price / 0.7;
+            
+            // 3. จัดการเรื่องจำนวนที่นั่ง[cite: 1]
+            $seat = $tour['available_seats'];
+            if ($seat <= 5) {
+                $seatIcon = "bi-fire"; $seatText = "Only $seat Seats Left"; $seatColor = "#ff5a5f";
+            } elseif ($seat <= 15) {
+                $seatIcon = "bi-exclamation-circle-fill"; $seatText = "$seat Seats Available"; $seatColor = "#ffb400";
+            } else {
+                $seatIcon = "bi-people-fill"; $seatText = "$seat Seats Available"; $seatColor = "#38d996";
+            }
+            ?>
+            
+            <div class="tour-card">
+                <div class="tour-image">
+                    <img src="assets/images/<?php echo $tour['image']; ?>" alt="<?php echo $tour['name']; ?>">
+                    <!-- ปรับจาก Badge สถานะที่นั่ง เป็น Badge บอกเปอร์เซ็นต์ส่วนลดสีน้ำเงินเด่นๆ -->
+                    <span class="discount-badge">SAVE 30%</span>
+                </div>
+                
+                <div class="tour-content">
+                    <span class="tour-city"><i class="bi bi-geo-alt-fill"></i> <?= $tour['city']; ?></span>
+                    <h3><?= $tour['name']; ?></h3>
+                    
+                    <!-- ส่วนแสดงราคาเดิมเปรียบเทียบกับราคาใหม่ -->
+                    <div class="price-row" style="margin: 15px 0 5px 0;">
+                        <span class="old-price" style="text-decoration: line-through; color: #999; font-size: 16px; margin-right: 10px;">
+                            ¥<?= number_format($old_price); ?>
+                        </span>
+                        <span class="new-price" style="color: #FFD369; font-size: 28px; font-weight: 700;">
+                            ¥<?= number_format($current_price); ?>
+                        </span>
+                        <span style="font-size: 14px; color: #bbb; font-weight: 500;">/ person</span>
+                    </div>
+
+                    <div class="seat-info" style="margin-top: 10px;">
+                        <i class="bi <?= $seatIcon ?>" style="color:<?= $seatColor ?>"></i> <span><?= $seatText ?></span>
+                    </div>
+                    
+                    <button class="book-btn">Book Now</button>
+                </div>
+            </div>
+            <?php endforeach; ?>
+        </div>
+    </div>
 </section>
 
 <script>
 const tours = <?= json_encode($tours, JSON_UNESCAPED_UNICODE); ?>;
-</script>t
+</script>
+
 <script src="assets/js/home.js"></script>
 <!-- Footer -->
 <?php include "includes/footer.php"; ?>

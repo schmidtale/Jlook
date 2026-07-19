@@ -45,3 +45,20 @@ function get_popular_tours() {
 
     return $tours;
 }
+
+//sort budget 
+function get_budget_tours() {
+    global $db;
+    
+
+    $query = 'SELECT * FROM tours 
+              ORDER BY price_yen ASC';
+              
+    $statement = $db->prepare($query);
+    $statement->execute();
+    
+    $tours = $statement->fetchAll(PDO::FETCH_ASSOC);
+    $statement->closeCursor();
+    
+    return $tours;
+}

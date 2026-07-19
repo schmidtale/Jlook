@@ -1,37 +1,45 @@
 document.addEventListener("DOMContentLoaded", () => {
 
+    // ===============================
+    // Check Data
+    // ===============================
     if (typeof tours === "undefined" || tours.length < 3) return;
 
-    // Featured Card
+    // ===============================
+    // Hero Elements
+    // ===============================
     const featuredImage = document.getElementById("featuredImage");
     const featuredTitle = document.getElementById("featuredTitle");
     const featuredDesc = document.getElementById("featuredDesc");
 
-    // Small Cards
     const smallImage1 = document.getElementById("smallImage1");
     const smallImage2 = document.getElementById("smallImage2");
+
+    const smallTitle1 = document.getElementById("smallTitle1");
+    const smallTitle2 = document.getElementById("smallTitle2");
 
     const smallCard1 = smallImage1.closest(".small-card");
     const smallCard2 = smallImage2.closest(".small-card");
 
-    // Buttons
     const nextBtn = document.getElementById("nextBtn");
     const prevBtn = document.getElementById("prevBtn");
 
-    // Counter
     const counter = document.querySelector(".slider-count");
 
     let current = 0;
 
+    // ===============================
+    // Update Hero
+    // ===============================
     function updateHero() {
 
         const total = tours.length;
 
-        const featured = tours[current % total];
+        const featured = tours[current];
         const small1 = tours[(current + 1) % total];
         const small2 = tours[(current + 2) % total];
 
-        // ===== Featured =====
+        // Featured
         featuredImage.src = "assets/images/" + featured.image;
         featuredImage.alt = featured.name;
 
@@ -42,15 +50,17 @@ document.addEventListener("DOMContentLoaded", () => {
                 ? featured.description.substring(0, 120) + "..."
                 : featured.description;
 
-        // ===== Small Card 1 =====
+        // Small 1
         smallImage1.src = "assets/images/" + small1.image;
         smallImage1.alt = small1.name;
+        smallTitle1.textContent = small1.name;
 
-        // ===== Small Card 2 =====
+        // Small 2
         smallImage2.src = "assets/images/" + small2.image;
         smallImage2.alt = small2.name;
+        smallTitle2.textContent = small2.name;
 
-        // ===== Counter =====
+        // Counter
         if (counter) {
 
             counter.textContent =
@@ -60,9 +70,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
     }
 
-    // ==========================
-    // Next Button
-    // ==========================
+    // ===============================
+    // Next
+    // ===============================
     nextBtn.addEventListener("click", () => {
 
         current = (current + 1) % tours.length;
@@ -71,9 +81,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
     });
 
-    // ==========================
-    // Previous Button
-    // ==========================
+    // ===============================
+    // Previous
+    // ===============================
     prevBtn.addEventListener("click", () => {
 
         current = (current - 1 + tours.length) % tours.length;
@@ -82,9 +92,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
     });
 
-    // ==========================
+    // ===============================
     // Click Small Card 1
-    // ==========================
+    // ===============================
     smallCard1.addEventListener("click", () => {
 
         current = (current + 1) % tours.length;
@@ -93,9 +103,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
     });
 
-    // ==========================
+    // ===============================
     // Click Small Card 2
-    // ==========================
+    // ===============================
     smallCard2.addEventListener("click", () => {
 
         current = (current + 2) % tours.length;
@@ -106,5 +116,84 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // First Load
     updateHero();
+
+    // ===================================================
+    // Live Search
+    // ===================================================
+
+    const searchInput = document.getElementById("searchTour");
+    const suggestion = document.getElementById("searchSuggestion");
+
+    if (searchInput && suggestion) {
+
+        searchInput.addEventListener("keyup", () => {
+
+            const keyword = searchInput.value.toLowerCase().trim();
+
+            suggestion.innerHTML = "";
+
+            if (keyword === "") {
+
+                suggestion.style.display = "none";
+
+                return;
+
+            }
+
+            const result = tours.filter(tour =>
+
+                (tour.name ?? "").toLowerCase().includes(keyword) ||
+
+                (tour.city ?? "").toLowerCase().includes(keyword)
+
+            );
+
+            if (result.length === 0) {
+
+                suggestion.style.display = "none";
+
+                return;
+
+            }
+
+            suggestion.style.display = "block";
+
+            result.forEach(tour => {
+
+                const item = document.createElement("div");
+
+                item.innerHTML = `
+                    📍 <strong>${tour.name}</strong><br>
+                    <small>${tour.city}</small>
+                `;
+
+                item.onclick = () => {
+
+                    searchInput.value = tour.name;
+
+                    suggestion.style.display = "none";
+
+                    searchInput.focus();
+
+                };
+
+                suggestion.appendChild(item);
+
+            });
+
+        });
+
+        // Hide suggestion when click outside
+        document.addEventListener("click", (e) => {
+
+            if (!e.target.closest(".search-input-group")) {
+
+                suggestion.style.display = "none";
+
+            }
+
+        });
+
+    }
 
 });
