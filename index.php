@@ -2,7 +2,10 @@
 
 require_once 'model/database.php';
 require_once 'model/tour_db.php';
+require_once "model/favorites_db.php";
 
+
+$user_fav_ids = [];
 $tour_statement = get_tours();
 $budget_tours = get_budget_tours();
 $tours = $tour_statement->fetchAll(PDO::FETCH_ASSOC);
@@ -14,6 +17,18 @@ include "includes/header.php";
 
 $basePath = "";
 
+
+if (isset($_SESSION['user_id'])) {
+    $user_id = $_SESSION['user_id'];
+    
+
+    $my_favs = search_favorites($user_id, '', 'recent'); 
+    
+
+    if (!empty($my_favs)) {
+        $user_fav_ids = array_column($my_favs, 'id');
+    }
+}
 ?>
 
 <!-- Home CSS -->
@@ -274,12 +289,20 @@ $basePath = "";
             <div class="tour-card">
                 <div class="tour-image">
                     <img src="assets/images/<?php echo $tour['image']; ?>" alt="<?php echo $tour['name']; ?>">
+                    <?php
 
+                    $is_favorite = in_array($tour['id'], $user_fav_ids);
+    
+
+                    $fav_action = $is_favorite ? 'remove' : 'add';
+                    $fav_icon = $is_favorite ? 'bi-heart-fill text-danger' : 'bi-heart';
+                    $fav_title = $is_favorite ? 'Remove from favorites' : 'Add to favorites';
+                    ?>
                     <form action="controller/favorite_process.php" method="POST" class="d-inline">
                         <input type="hidden" name="tour_id" value="<?php echo $tour['id']; ?>">
-                        <input type="hidden" name="action" value="add"> <!-- ส่ง action บอกว่าให้เพิ่ม (add) -->
-                        <button type="submit" class="fav-btn" title="Add to favorites">
-                            <i class="bi bi-heart"></i>
+                        <input type="hidden" name="action" value="<?php echo $fav_action; ?>">
+                        <button type="submit" class="fav-btn" title="<?php echo $fav_title; ?>">
+                            <i class="bi <?php echo $fav_icon; ?>"></i>
                         </button>
                     </form>
 
@@ -320,10 +343,15 @@ $basePath = "";
 
                     </div>
 
-                    <button class="book-btn">
 
+                    <button class="book-btn" onclick="openBookingModal(
+                        '<?= $tour['id']; ?>', 
+                        '<?= htmlspecialchars($tour['name'], ENT_QUOTES); ?>', 
+                        '<?= $tour['city']; ?>', 
+                        '<?= $tour['price_yen']; ?>', 
+                        'assets/images/<?= $tour['image']; ?>'
+                    )">
                         Book Now
-
                     </button>
 
                 </div>
@@ -371,12 +399,20 @@ $basePath = "";
             <div class="tour-card">
                 <div class="tour-image">
                     <img src="assets/images/<?php echo $tour['image']; ?>" alt="<?php echo $tour['name']; ?>">
+                    <?php
 
+                    $is_favorite = in_array($tour['id'], $user_fav_ids);
+
+
+                    $fav_action = $is_favorite ? 'remove' : 'add';
+                    $fav_icon = $is_favorite ? 'bi-heart-fill text-danger' : 'bi-heart';
+                    $fav_title = $is_favorite ? 'Remove from favorites' : 'Add to favorites';
+                    ?>
                     <form action="controller/favorite_process.php" method="POST" class="d-inline">
                         <input type="hidden" name="tour_id" value="<?php echo $tour['id']; ?>">
-                        <input type="hidden" name="action" value="add"> 
-                        <button type="submit" class="fav-btn" title="Add to favorites">
-                            <i class="bi bi-heart"></i>
+                        <input type="hidden" name="action" value="<?php echo $fav_action; ?>">
+                        <button type="submit" class="fav-btn" title="<?php echo $fav_title; ?>">
+                            <i class="bi <?php echo $fav_icon; ?>"></i>
                         </button>
                     </form>
 
@@ -394,13 +430,84 @@ $basePath = "";
                             style="color: #FFD369; font-size: 28px; font-weight: 700;">¥<?= number_format($current_price); ?></span>
                     </div>
 
-                    <button class="book-btn">Book Now</button>
+
+                    <button class="book-btn" onclick="openBookingModal(
+                        '<?= $tour['id']; ?>', 
+                        '<?= htmlspecialchars($tour['name'], ENT_QUOTES); ?>', 
+                        '<?= $tour['city']; ?>', 
+                        '<?= $tour['price_yen']; ?>', 
+                        'assets/images/<?= $tour['image']; ?>'
+                    )">
+                        Book Now
+                    </button>
                 </div>
             </div>
             <?php endforeach; ?>
         </div>
     </div>
 </section>
+
+<!-- =========================
+     Booking Modal (Pop-up)
+========================= -->
+<div id="bookingModal" class="booking-modal-overlay">
+    <div class="booking-modal-card">
+
+        <button class="close-modal-btn" onclick="closeBookingModal()">&times;</button>
+
+        <div class="booking-modal-body">
+            <div class="modal-left-summary">
+                <div class="modal-tour-img-wrap">
+                    <img id="modalTourImage" src="" alt="Tour Image">
+                </div>
+                <div class="modal-tour-info">
+                    <span id="modalTourCity" class="modal-city-tag"></span>
+                    <h3 id="modalTourName"></h3>
+                    <div class="modal-base-price">
+                        <small>Price per person</small>
+                        <p>¥<span id="modalBasePriceNum">0</span></p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-right-form">
+                <h3>Book Your Adventure</h3>
+                <p class="form-lead">Fill in the details below to secure your slots instantly.</p>
+
+                <form action="controller/booking_process.php" method="POST">
+                    <input type="hidden" id="modalTourId" name="tour_id" value="">
+
+                    <div class="form-group mb-3">
+                        <label for="bookingDate"><i class="bi bi-calendar3"></i> Travel Date</label>
+                        <input type="date" id="bookingDate" name="travel_date" class="form-control-custom" required>
+                    </div>
+
+
+                    <div class="form-group mb-4">
+                        <label for="bookingGuests"><i class="bi bi-people"></i> Number of Guests</label>
+                        <select id="bookingGuests" name="guests" class="form-control-custom"
+                            onchange="calculateTotalPrice()">
+                            <option value="1">1 Person</option>
+                            <option value="2">2 Persons</option>
+                            <option value="3">3 Persons</option>
+                            <option value="4">4 Persons</option>
+                            <option value="5">5+ Persons</option>
+                        </select>
+                    </div>
+
+                    <div class="total-price-display">
+                        <span>Total Price:</span>
+                        <strong id="modalTotalPrice">¥0</strong>
+                    </div>
+
+                    <button type="submit" class="confirm-booking-btn">
+                        <i class="bi bi-credit-card-fill"></i> Proceed to Checkout
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 
 <script>
 const tours = <?= json_encode($tours, JSON_UNESCAPED_UNICODE); ?>;

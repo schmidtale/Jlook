@@ -909,20 +909,48 @@ body{
     position: absolute;
     top: 15px;
     right: 15px;
-    width: 35px;
-    height: 35px;
+    width: 38px; 
+    height: 38px;
     border-radius: 50%;
-    background: rgba(255, 255, 255, 0.9); 
-    border: none;
+    
+
+    background: rgba(255, 255, 255, 0.25); 
+    backdrop-filter: blur(8px);          
+    -webkit-backdrop-filter: blur(8px);   
+    
+
+    border: 1px solid rgba(255, 255, 255, 0.4); 
+    
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #ff4a5a; 
-    font-size: 16px;
+    font-size: 18px;
     cursor: pointer;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-    transition: all 0.2s ease;
-    z-index: 10; 
+    
+  
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1); 
+    
+    transition: all 0.3s ease;
+    z-index: 10;
+}
+
+
+.fav-btn .bi-heart {
+    color: #ffffff; 
+
+    filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.5)); 
+}
+
+
+.fav-btn .bi-heart-fill {
+    color: #ff4a5a;
+    filter: drop-shadow(0px 1px 4px rgba(255, 74, 90, 0.4)); 
+}
+
+.fav-btn:hover {
+    background: rgba(255, 255, 255, 0.4); 
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    transform: scale(1.1); 
 }
 
 .fav-btn:hover {
@@ -1115,4 +1143,222 @@ body{
     color:white;
     font-size:24px;
     font-weight:700;
+}
+
+/* ===================================================
+   🔮 Dark Glassmorphism Booking Modal
+=================================================== */
+
+/* แผ่นเลเยอร์หลังสุดที่บังทั้งหน้าจอ */
+.booking-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7); /* มืดลงเพื่อให้ตัวกระจกเด่นขึ้น */
+    backdrop-filter: blur(8px);    /* เบลอหน้า Home ข้างหลัง */
+    -webkit-backdrop-filter: blur(8px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* คลาสเปิดใช้งาน Pop-up (เรียกใช้ผ่าน JS) */
+.booking-modal-overlay.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* ตัวการ์ด Pop-up สไตล์กระจกรมดำ */
+.booking-modal-card {
+    background: rgba(11, 11, 11, 0.65); /* พื้นหลังดำเข้มแบบโปร่งแสง */
+    backdrop-filter: blur(20px);        /* เอฟเฟกต์กระจกฝ้าชั้นหนา */
+    -webkit-backdrop-filter: blur(20px);
+    width: 850px;
+    max-width: 90%;
+    border-radius: 24px;
+    overflow: hidden;
+    position: relative;
+    
+    /* เส้นขอบนีออน/กระจกสะท้อนแสงบางๆ */
+    border: 1px solid rgba(255, 255, 255, 0.08); 
+    
+    /* มิติเงาละมุนโทนดาร์ก */
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), 
+                inset 0 1px 0 rgba(255, 255, 255, 0.1); 
+                
+    transform: scale(0.9) translateY(20px);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.booking-modal-overlay.active .booking-modal-card {
+    transform: scale(1) translateY(0);
+}
+
+/* ปุ่มปิด (X) สไตล์มินิมอล */
+.close-modal-btn {
+    position: absolute;
+    top: 20px;
+    right: 25px;
+    background: none;
+    border: none;
+    font-size: 28px;
+    color: rgba(255, 255, 255, 0.5);
+    cursor: pointer;
+    z-index: 10;
+    transition: all 0.2s;
+}
+.close-modal-btn:hover { 
+    color: #ff4a5a; 
+    transform: rotate(90deg);
+}
+
+/* โครงสร้างเนื้อหาด้านใน */
+.booking-modal-body {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+/* 🖤 ฝั่งซ้าย: สรุปรายละเอียดทัวร์ (โทนดำทึบ #0B0B0B ตัดขอบกระจก) */
+.modal-left-summary {
+    flex: 1 1 350px;
+    background: #0B0B0B; 
+    color: #ffffff;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border-right: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.modal-tour-img-wrap {
+    width: 100%;
+    height: 190px;
+    border-radius: 14px;
+    overflow: hidden;
+    margin-bottom: 25px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+}
+.modal-tour-img-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.modal-city-tag {
+    background: rgba(255, 255, 255, 0.1);
+    color: #ffd369;
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+}
+
+.modal-tour-info h3 {
+    margin: 15px 0 30px 0;
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 1.4;
+    color: #ffffff;
+}
+
+.modal-base-price small { color: rgba(255,255,255,0.4); font-size: 13px; }
+.modal-base-price p { font-size: 36px; font-weight: 700; color: #ffd369; margin: 5px 0 0 0; }
+
+/* 🔮 ฝั่งขวา: ฟอร์มการจองแบบกระจกรมดำ (โปร่งแสงทะลุไปข้างหลัง) */
+.modal-right-form {
+    flex: 1 2 450px;
+    padding: 45px;
+    background: rgba(11, 11, 11, 0.2); /* โปร่งแสงให้เห็นมิติกระจก */
+}
+.modal-right-form h3 { font-size: 24px; color: #ffffff; margin-bottom: 8px; font-weight: 600; }
+.form-lead { color: rgba(255, 255, 255, 0.5); font-size: 14px; margin-bottom: 30px; }
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 14px;
+    display: block;
+    margin-bottom: 8px;
+}
+.form-group label i {
+    color: #ffd369;
+    margin-right: 5px;
+}
+
+/* ช่องกรอกข้อมูลสไตล์ Glassmorphism */
+.form-control-custom {
+    width: 100%;
+    padding: 14px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    font-size: 15px;
+    color: #ffffff;
+    box-sizing: border-box;
+    transition: all 0.3s;
+}
+.form-control-custom:focus {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: #ffd369; /* เปลี่ยนสีขอบเป็นทองตอน Focus */
+    outline: none;
+    box-shadow: 0 0 10px rgba(255, 211, 105, 0.2);
+}
+
+/* ปรับแต่งไอคอนปฏิทินและลูกศรให้เป็นสีขาว/สว่างในโหมดมืด */
+.form-control-custom::-webkit-calendar-picker-indicator {
+    filter: invert(1);
+}
+.form-control-custom option {
+    background: #0B0B0B; /* เพื่อให้ตัวเลือกใน select อ่านออก */
+    color: #fff;
+}
+
+/* กล่องคำนวณราคารวม (กระจกฝ้าซ้อนกระจกฝ้า) */
+.total-price-display {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    padding: 18px 24px;
+    border-radius: 14px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 25px;
+    margin-bottom: 25px;
+}
+.total-price-display span { font-weight: 500; color: rgba(255, 255, 255, 0.5); }
+.total-price-display strong { font-size: 28px; color: #38d996; font-weight: 700; }
+
+/* ปุ่มยืนยันการจองสีเขียวสว่างตัดกับโทนดาร์ก */
+.confirm-booking-btn {
+    width: 100%;
+    padding: 16px;
+    background: #38d996;
+    color: #0b0b0b; /* ใช้ตัวหนังสือสีมืดบนปุ่มสว่าง */
+    border: none;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 8px 24px rgba(56, 217, 150, 0.3);
+    transition: all 0.3s;
+}
+.confirm-booking-btn:hover { 
+    background: #2ecc71; 
+    transform: translateY(-2px);
+    box-shadow: 0 12px 28px rgba(46, 204, 113, 0.4);
+}
+.confirm-booking-btn:active {
+    transform: translateY(0);
 }

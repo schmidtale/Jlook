@@ -1,3 +1,53 @@
+let currentTourPrice = 0;
+
+
+function openBookingModal(id, name, city, price, imageSrc) {
+    currentTourPrice = parseInt(price); 
+
+
+    document.getElementById('modalTourId').value = id;
+    document.getElementById('modalTourName').innerText = name;
+    document.getElementById('modalTourCity').innerText = city;
+    document.getElementById('modalTourImage').src = imageSrc;
+    document.getElementById('modalBasePriceNum').innerText = currentTourPrice.toLocaleString();
+
+    // รีเซ็ตค่าฟอร์มฝั่งขวา
+    document.getElementById('bookingGuests').value = "1";
+    document.getElementById('bookingDate').value = "";
+    
+    // คำนวณราคาเริ่มต้น
+    calculateTotalPrice();
+
+    // แสดง Pop-up ขึ้นมาบนหน้าจอ
+    document.getElementById('bookingModal').classList.add('active');
+}
+
+// ฟังก์ชันสำหรับปิด Pop-up
+function closeBookingModal() {
+    document.getElementById('bookingModal').classList.remove('active');
+}
+
+// ฟังก์ชันคำนวณราคาแบบ Real-time ตามจำนวนผู้ร่วมเดินทาง
+function calculateTotalPrice() {
+    const guestsCount = parseInt(document.getElementById('bookingGuests').value);
+    const totalPrice = currentTourPrice * guestsCount;
+    
+    // แสดงผลยอดรวมแบบใส่คอมมาขั้นหลักพันให้สวยงาม เช่น ¥30,000
+    document.getElementById('modalTotalPrice').innerText = '¥' + totalPrice.toLocaleString();
+}
+
+// ระบบเสริม: ถ้าผู้ใช้คลิกพื้นที่ว่างนอก Pop-up ให้สั่งปิด Pop-up อัตโนมัติ
+window.onclick = function(event) {
+    const modal = document.getElementById('bookingModal');
+    if (event.target === modal) {
+        closeBookingModal();
+    }
+}
+
+
+// ===================================================
+// 🏠 Main Home Logic (รอให้ DOM โหลดเสร็จก่อนทำงาน)
+// ===================================================
 document.addEventListener("DOMContentLoaded", () => {
 
     // ===============================
@@ -32,9 +82,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // Update Hero
     // ===============================
     function updateHero() {
-
         const total = tours.length;
-
         const featured = tours[current];
         const small1 = tours[(current + 1) % total];
         const small2 = tours[(current + 2) % total];
@@ -42,7 +90,6 @@ document.addEventListener("DOMContentLoaded", () => {
         // Featured
         featuredImage.src = "assets/images/" + featured.image;
         featuredImage.alt = featured.name;
-
         featuredTitle.textContent = featured.name;
 
         featuredDesc.textContent =
@@ -62,56 +109,41 @@ document.addEventListener("DOMContentLoaded", () => {
 
         // Counter
         if (counter) {
-
             counter.textContent =
                 `${String(current + 1).padStart(2, "0")}/${String(total).padStart(2, "0")}`;
-
         }
-
     }
 
     // ===============================
     // Next
     // ===============================
     nextBtn.addEventListener("click", () => {
-
         current = (current + 1) % tours.length;
-
         updateHero();
-
     });
 
     // ===============================
     // Previous
     // ===============================
     prevBtn.addEventListener("click", () => {
-
         current = (current - 1 + tours.length) % tours.length;
-
         updateHero();
-
     });
 
     // ===============================
     // Click Small Card 1
     // ===============================
     smallCard1.addEventListener("click", () => {
-
         current = (current + 1) % tours.length;
-
         updateHero();
-
     });
 
     // ===============================
     // Click Small Card 2
     // ===============================
     smallCard2.addEventListener("click", () => {
-
         current = (current + 2) % tours.length;
-
         updateHero();
-
     });
 
     // First Load
@@ -120,80 +152,54 @@ document.addEventListener("DOMContentLoaded", () => {
     // ===================================================
     // Live Search
     // ===================================================
-
     const searchInput = document.getElementById("searchTour");
     const suggestion = document.getElementById("searchSuggestion");
 
     if (searchInput && suggestion) {
-
         searchInput.addEventListener("keyup", () => {
-
             const keyword = searchInput.value.toLowerCase().trim();
-
             suggestion.innerHTML = "";
 
             if (keyword === "") {
-
                 suggestion.style.display = "none";
-
                 return;
-
             }
 
             const result = tours.filter(tour =>
-
                 (tour.name ?? "").toLowerCase().includes(keyword) ||
-
                 (tour.city ?? "").toLowerCase().includes(keyword)
-
             );
 
             if (result.length === 0) {
-
                 suggestion.style.display = "none";
-
                 return;
-
             }
 
             suggestion.style.display = "block";
 
             result.forEach(tour => {
-
                 const item = document.createElement("div");
-
                 item.innerHTML = `
                     📍 <strong>${tour.name}</strong><br>
                     <small>${tour.city}</small>
                 `;
 
                 item.onclick = () => {
-
                     searchInput.value = tour.name;
-
                     suggestion.style.display = "none";
-
                     searchInput.focus();
-
                 };
 
                 suggestion.appendChild(item);
-
             });
-
         });
 
         // Hide suggestion when click outside
         document.addEventListener("click", (e) => {
-
             if (!e.target.closest(".search-input-group")) {
-
                 suggestion.style.display = "none";
-
             }
-
         });
-
     }
 
 });
