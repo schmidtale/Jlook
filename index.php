@@ -289,22 +289,22 @@ if (isset($_SESSION['user_id'])) {
             <div class="tour-card">
                 <div class="tour-image">
                     <img src="assets/images/<?php echo $tour['image']; ?>" alt="<?php echo $tour['name']; ?>">
+
                     <?php
-
                     $is_favorite = in_array($tour['id'], $user_fav_ids);
-    
-
                     $fav_action = $is_favorite ? 'remove' : 'add';
                     $fav_icon = $is_favorite ? 'bi-heart-fill text-danger' : 'bi-heart';
-                    $fav_title = $is_favorite ? 'Remove from favorites' : 'Add to favorites';
                     ?>
                     <form action="controller/favorite_process.php" method="POST" class="d-inline">
                         <input type="hidden" name="tour_id" value="<?php echo $tour['id']; ?>">
                         <input type="hidden" name="action" value="<?php echo $fav_action; ?>">
-                        <button type="submit" class="fav-btn" title="<?php echo $fav_title; ?>">
+                        <button type="submit" class="fav-btn">
                             <i class="bi <?php echo $fav_icon; ?>"></i>
                         </button>
                     </form>
+
+                    <span class="budget-badge">SAVE 30%</span>
+                    
                 </div>
 
                 <div class="tour-content">

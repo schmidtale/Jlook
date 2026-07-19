@@ -11,32 +11,30 @@ function openBookingModal(id, name, city, price, imageSrc) {
     document.getElementById('modalTourImage').src = imageSrc;
     document.getElementById('modalBasePriceNum').innerText = currentTourPrice.toLocaleString();
 
-    // รีเซ็ตค่าฟอร์มฝั่งขวา
     document.getElementById('bookingGuests').value = "1";
     document.getElementById('bookingDate').value = "";
     
-    // คำนวณราคาเริ่มต้น
+
     calculateTotalPrice();
 
-    // แสดง Pop-up ขึ้นมาบนหน้าจอ
+
     document.getElementById('bookingModal').classList.add('active');
 }
 
-// ฟังก์ชันสำหรับปิด Pop-up
+
 function closeBookingModal() {
     document.getElementById('bookingModal').classList.remove('active');
 }
 
-// ฟังก์ชันคำนวณราคาแบบ Real-time ตามจำนวนผู้ร่วมเดินทาง
+
 function calculateTotalPrice() {
     const guestsCount = parseInt(document.getElementById('bookingGuests').value);
     const totalPrice = currentTourPrice * guestsCount;
     
-    // แสดงผลยอดรวมแบบใส่คอมมาขั้นหลักพันให้สวยงาม เช่น ¥30,000
+    
     document.getElementById('modalTotalPrice').innerText = '¥' + totalPrice.toLocaleString();
 }
 
-// ระบบเสริม: ถ้าผู้ใช้คลิกพื้นที่ว่างนอก Pop-up ให้สั่งปิด Pop-up อัตโนมัติ
 window.onclick = function(event) {
     const modal = document.getElementById('bookingModal');
     if (event.target === modal) {
@@ -45,9 +43,6 @@ window.onclick = function(event) {
 }
 
 
-// ===================================================
-// 🏠 Main Home Logic (รอให้ DOM โหลดเสร็จก่อนทำงาน)
-// ===================================================
 document.addEventListener("DOMContentLoaded", () => {
 
     // ===============================
