@@ -1,5 +1,16 @@
 <?php
 
+require_once 'model/database.php';
+require_once 'model/tour_db.php';
+
+$tour_statement = get_tours();
+$tours = $tour_statement->fetchAll(PDO::FETCH_ASSOC);
+$tour_statement->closeCursor();
+
+$basePath = "";
+
+include "includes/header.php";
+
 $basePath = "";
 
 include "includes/header.php";
@@ -48,24 +59,23 @@ include "includes/header.php";
             </div>
 
             <!-- =========================
-                 Right Content
-            ========================== -->
+     Right Content
+========================= -->
             <div class="hero-right">
 
+                <!-- Hero Slider -->
                 <div class="hero-slider">
 
                     <!-- Featured Card -->
                     <div class="hero-card featured-card">
 
-                        <img src="assets/images/tokyo-tower.png" alt="Tokyo Tower">
+                        <img id="featuredImage" src="" alt="">
 
                         <div class="hero-card-body">
 
-                            <h3>Tokyo Adventure</h3>
+                            <h3 id="featuredTitle"></h3>
 
-                            <p>
-                                Experience the very best of Tokyo in one unforgettable day.
-                            </p>
+                            <p id="featuredDesc"></p>
 
                         </div>
 
@@ -74,14 +84,26 @@ include "includes/header.php";
                     <!-- Small Card 1 -->
                     <div class="hero-card small-card">
 
-                        <img src="assets/images/1.png" alt="Kyoto">
+                        <img id="smallImage1" src="" alt="">
+
+                        <div class="small-card-body">
+
+                            <h5 id="smallTitle1"></h5>
+
+                        </div>
 
                     </div>
 
                     <!-- Small Card 2 -->
                     <div class="hero-card small-card">
 
-                        <img src="assets/images/2.png" alt="Mt. Fuji">
+                        <img id="smallImage2" src="" alt="">
+
+                        <div class="small-card-body">
+
+                            <h5 id="smallTitle2"></h5>
+
+                        </div>
 
                     </div>
 
@@ -90,12 +112,12 @@ include "includes/header.php";
                 <!-- Slider Navigation -->
                 <div class="slider-control">
 
-                    <button class="slider-btn">
-                        ←
+                    <button id="prevBtn" class="slider-btn">
+                        <i class="bi bi-arrow-left"></i>
                     </button>
 
-                    <button class="slider-btn">
-                        →
+                    <button id="nextBtn" class="slider-btn">
+                        <i class="bi bi-arrow-right"></i>
                     </button>
 
                     <div class="slider-line"></div>
@@ -167,8 +189,6 @@ include "includes/header.php";
             </button>
 
         </div>
-
-    </div>
 
 </section>
 <!-- =========================
@@ -341,5 +361,10 @@ include "includes/header.php";
     </div>
 
 </section>
+
+<script>
+const tours = <?= json_encode($tours, JSON_UNESCAPED_UNICODE); ?>;
+</script>t
+<script src="assets/js/home.js"></script>
 <!-- Footer -->
 <?php include "includes/footer.php"; ?>

@@ -3,9 +3,7 @@
     <!-- Logo -->
     <a href="<?= $basePath ?>index.php" class="logo">
 
-        <img
-            src="<?= $basePath ?>assets/images/Jlook.png"
-            alt="Jlook Logo">
+        <img src="<?= $basePath ?>assets/images/Jlook.png" alt="Jlook Logo">
 
     </a>
 
@@ -33,66 +31,59 @@
     <!-- Login -->
     <?php if(isset($_SESSION['user_id'])): ?>
 
-<div class="dropdown">
+    <div class="dropdown">
 
-    <button
-        class="user-btn dropdown-toggle"
-        data-bs-toggle="dropdown">
+        <button class="user-btn dropdown-toggle" data-bs-toggle="dropdown">
 
-        <div class="user-avatar">
+            <div class="user-avatar">
 
-            <?= strtoupper(substr($_SESSION['user_name'],0,1)); ?>
+                <?= strtoupper(substr($_SESSION['user_name'],0,1)); ?>
 
-        </div>
+            </div>
 
-        <span>
+            <span>
 
-            <?= htmlspecialchars($_SESSION['user_name']); ?>
+                <?= htmlspecialchars($_SESSION['user_name']); ?>
 
-        </span>
+            </span>
 
-    </button>
+        </button>
 
-    <ul class="dropdown-menu dropdown-menu-end">
+        <ul class="dropdown-menu dropdown-menu-end">
 
-        <li class="dropdown-header">
+            <li class="dropdown-header">
 
-            <?= htmlspecialchars($_SESSION['user_email']); ?>
+                <?= htmlspecialchars($_SESSION['user_email']); ?>
 
-        </li>
+            </li>
 
-        <li>
-            <hr class="dropdown-divider">
-        </li>
+            <li>
+                <hr class="dropdown-divider">
+            </li>
 
-        <li>
+            <li>
 
-            <a
-                class="dropdown-item"
-                href="<?= $basePath ?>controller/logout.php">
+                <a class="dropdown-item" href="<?= $basePath ?>controller/logout.php">
 
-                <i class="bi bi-box-arrow-right me-2"></i>
+                    <i class="bi bi-box-arrow-right me-2"></i>
 
-                Logout
+                    Logout
 
-            </a>
+                </a>
 
-        </li>
+            </li>
 
-    </ul>
+        </ul>
 
-</div>
+    </div>
 
-<?php else: ?>
+    <?php else: ?>
 
-<a
-    href="<?= $basePath ?>pages/login.php"
-    class="login-btn">
+    <a href="<?= $basePath ?>pages/login.php" class="login-btn">
+        <i class="bi bi-person-circle me-2"></i>
+        Login
+    </a>
 
-    Login
-
-</a>
-
-<?php endif; ?>
+    <?php endif; ?>
 
 </header>
