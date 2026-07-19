@@ -303,8 +303,6 @@ if (isset($_SESSION['user_id'])) {
                         </button>
                     </form>
 
-                    <span class="budget-badge">SAVE 30%</span>
-                    
                 </div>
 
                 <div class="tour-content">
@@ -414,7 +412,7 @@ if (isset($_SESSION['user_id'])) {
                         </button>
                     </form>
 
-                    <span class="discount-badge">SAVE 30%</span>
+                    <span class="budget-badge">SAVE 30%</span>
                 </div>
 
                 <div class="tour-content">

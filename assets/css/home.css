@@ -1105,38 +1105,24 @@ body{
     background:rgba(255,255,255,.12);
 }
 
-.budget-badge {
-    position: absolute;
-    top: 15px;
-    left: 15px;
-    background-color: #ff4a5a; 
-    color: white;
-    font-size: 0.85rem;
-    font-weight: bold;
-    padding: 6px 12px;
-    border-radius: 4px;
-    text-transform: uppercase;
-    box-shadow: 0 2px 8px rgba(255, 74, 90, 0.3);
-    z-index: 2;
+.tour-image .budget-badge {
+    position: absolute !important;
+    top: 15px !important;
+    left: 15px !important;
+    background-color: #ff4a5a !important;
+    color: white !important;
+    font-size: 0.85rem !important;
+    font-weight: bold !important;
+    padding: 6px 12px !important;
+    border-radius: 4px !important;
+    text-transform: uppercase !important;
+    box-shadow: 0 4px 10px rgba(255, 74, 90, 0.4) !important;
+    z-index: 99 !important; 
+    display: block !important;
 }
 .budget-body
 {
     padding: 22px;
-}
-
-.discount-badge{
-
-    top: 18px;
-    left: 18px;
-    display:inline-block;
-    padding:7px 15px;
-    border-radius:50px;
-    background:#ff4a5a; 
-    color:white;
-    font-size:13px;
-    font-weight:600;
-    z-index: 5;
-    box-shadow: 0 4px 10px rgba(255, 74, 90, 0.3);
 }
 
 .price-row{
@@ -1145,7 +1131,13 @@ body{
     gap:10px;
     margin:18px 0;
 }
-
+.budget-section .price-row {
+    margin-top: auto !important; 
+    margin-bottom: 5px !important; 
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
 .old-price{
     text-decoration:line-through;
     color:#999;
@@ -1180,16 +1172,16 @@ body{
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* คลาสเปิดใช้งาน Pop-up (เรียกใช้ผ่าน JS) */
+
 .booking-modal-overlay.active {
     opacity: 1;
     pointer-events: auto;
 }
 
-/* ตัวการ์ด Pop-up สไตล์กระจกรมดำ */
+
 .booking-modal-card {
-    background: rgba(11, 11, 11, 0.65); /* พื้นหลังดำเข้มแบบโปร่งแสง */
-    backdrop-filter: blur(20px);        /* เอฟเฟกต์กระจกฝ้าชั้นหนา */
+    background: rgba(11, 11, 11, 0.65);
+    backdrop-filter: blur(20px);     
     -webkit-backdrop-filter: blur(20px);
     width: 850px;
     max-width: 90%;
@@ -1197,10 +1189,10 @@ body{
     overflow: hidden;
     position: relative;
     
-    /* เส้นขอบนีออน/กระจกสะท้อนแสงบางๆ */
+  
     border: 1px solid rgba(255, 255, 255, 0.08); 
     
-    /* มิติเงาละมุนโทนดาร์ก */
+
     box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), 
                 inset 0 1px 0 rgba(255, 255, 255, 0.1); 
                 
@@ -1212,7 +1204,7 @@ body{
     transform: scale(1) translateY(0);
 }
 
-/* ปุ่มปิด (X) สไตล์มินิมอล */
+
 .close-modal-btn {
     position: absolute;
     top: 20px;
@@ -1230,13 +1222,13 @@ body{
     transform: rotate(90deg);
 }
 
-/* โครงสร้างเนื้อหาด้านใน */
+
 .booking-modal-body {
     display: flex;
     flex-wrap: wrap;
 }
 
-/* 🖤 ฝั่งซ้าย: สรุปรายละเอียดทัวร์ (โทนดำทึบ #0B0B0B ตัดขอบกระจก) */
+
 .modal-left-summary {
     flex: 1 1 350px;
     background: #0B0B0B; 
@@ -1284,11 +1276,11 @@ body{
 .modal-base-price small { color: rgba(255,255,255,0.4); font-size: 13px; }
 .modal-base-price p { font-size: 36px; font-weight: 700; color: #ffd369; margin: 5px 0 0 0; }
 
-/* 🔮 ฝั่งขวา: ฟอร์มการจองแบบกระจกรมดำ (โปร่งแสงทะลุไปข้างหลัง) */
+
 .modal-right-form {
     flex: 1 2 450px;
     padding: 45px;
-    background: rgba(11, 11, 11, 0.2); /* โปร่งแสงให้เห็นมิติกระจก */
+    background: rgba(11, 11, 11, 0.2); 
 }
 .modal-right-form h3 { font-size: 24px; color: #ffffff; margin-bottom: 8px; font-weight: 600; }
 .form-lead { color: rgba(255, 255, 255, 0.5); font-size: 14px; margin-bottom: 30px; }
@@ -1309,7 +1301,7 @@ body{
     margin-right: 5px;
 }
 
-/* ช่องกรอกข้อมูลสไตล์ Glassmorphism */
+
 .form-control-custom {
     width: 100%;
     padding: 14px;
@@ -1323,21 +1315,21 @@ body{
 }
 .form-control-custom:focus {
     background: rgba(255, 255, 255, 0.08);
-    border-color: #ffd369; /* เปลี่ยนสีขอบเป็นทองตอน Focus */
+    border-color: #ffd369; 
     outline: none;
     box-shadow: 0 0 10px rgba(255, 211, 105, 0.2);
 }
 
-/* ปรับแต่งไอคอนปฏิทินและลูกศรให้เป็นสีขาว/สว่างในโหมดมืด */
+
 .form-control-custom::-webkit-calendar-picker-indicator {
     filter: invert(1);
 }
 .form-control-custom option {
-    background: #0B0B0B; /* เพื่อให้ตัวเลือกใน select อ่านออก */
+    background: #0B0B0B; 
     color: #fff;
 }
 
-/* กล่องคำนวณราคารวม (กระจกฝ้าซ้อนกระจกฝ้า) */
+
 .total-price-display {
     background: rgba(255, 255, 255, 0.03);
     border: 1px solid rgba(255, 255, 255, 0.05);
@@ -1352,12 +1344,12 @@ body{
 .total-price-display span { font-weight: 500; color: rgba(255, 255, 255, 0.5); }
 .total-price-display strong { font-size: 28px; color: #38d996; font-weight: 700; }
 
-/* ปุ่มยืนยันการจองสีเขียวสว่างตัดกับโทนดาร์ก */
+
 .confirm-booking-btn {
     width: 100%;
     padding: 16px;
     background: #38d996;
-    color: #0b0b0b; /* ใช้ตัวหนังสือสีมืดบนปุ่มสว่าง */
+    color: #0b0b0b; 
     border: none;
     border-radius: 12px;
     font-size: 16px;
@@ -1373,4 +1365,173 @@ body{
 }
 .confirm-booking-btn:active {
     transform: translateY(0);
+}
+
+/* ===================================================
+   Responsive Design (Mobile & Tablet)
+=================================================== */
+
+
+@media (max-width: 1024px) {
+    .popular-section {
+        padding: 40px 30px; 
+    }
+    
+    .tour-grid {
+        grid-template-columns: repeat(2, 1fr); 
+        gap: 20px;
+    }
+
+    .hero-content {
+        flex-direction: column; 
+        gap: 40px;
+        text-align: center;
+    }
+
+    .hero-left, .hero-right {
+        width: 100%;
+    }
+
+    .hero-left p {
+        margin: 25px auto 0 auto;
+    }
+
+    .search-box {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .search-divider {
+        width: 100%;
+        height: 1px; 
+    }
+}
+
+
+@media (max-width: 768px) {
+    .section-title {
+        font-size: 32px; 
+    }
+
+    .section-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+        margin-bottom: 30px;
+    }
+
+    .tour-grid {
+        grid-template-columns: 1fr; 
+    }
+
+
+    .hero-slider {
+        justify-content: center;
+    }
+    .small-card {
+        display: none; 
+    }
+    .featured-card {
+        width: 100%;
+        flex: 1;
+    }
+    
+ 
+    .booking-modal-card {
+        width: 95%;
+        max-height: 90vh;
+        overflow-y: auto; 
+    }
+    .booking-modal-body {
+        flex-direction: column; 
+    }
+    .modal-left-summary {
+        border-right: none;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        padding: 25px;
+    }
+    .modal-right-form {
+        padding: 25px;
+    }
+}
+
+/* ===================================================
+Responsive Navbar
+=================================================== */
+
+.menu-toggle {
+    display: none;
+    background: rgba(255, 255, 255, 0.12);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: white;
+    font-size: 24px;
+    padding: 8px 14px;
+    border-radius: 12px;
+    cursor: pointer;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    transition: 0.3s;
+}
+
+@media (max-width: 991px) {
+    .top-navbar {
+        width: 92%;
+        padding: 0;
+    }
+
+
+    .menu-toggle {
+        display: block;
+        order: 2;
+    }
+
+
+    .top-navbar .dropdown, 
+    .top-navbar .login-btn {
+        order: 3;
+    }
+    
+    .top-navbar .logo {
+        order: 1;
+    }
+
+
+    .nav-container {
+        position: absolute;
+        top: 80px;
+        left: 0;
+        width: 100%;
+        display: none; 
+        flex-direction: column;
+        z-index: 999;
+        order: 4;
+    }
+
+
+    .nav-container.active {
+        display: flex;
+    }
+
+
+    .glass-menu {
+        flex-direction: column;
+        width: 100%;
+        gap: 15px;
+        padding: 20px;
+        border-radius: 20px;
+        text-align: center;
+        background: rgba(11, 11, 11, 0.85);
+        box-shadow: 0 15px 30px rgba(0,0,0,0.5);
+    }
+
+    .glass-menu a {
+        display: block;
+        padding: 10px 0;
+        font-size: 16px;
+        border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+    
+    .glass-menu a:last-child {
+        border-bottom: none;
+    }
 }

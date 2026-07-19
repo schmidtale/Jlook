@@ -1,9 +1,7 @@
 let currentTourPrice = 0;
 
-
 function openBookingModal(id, name, city, price, imageSrc) {
     currentTourPrice = parseInt(price); 
-
 
     document.getElementById('modalTourId').value = id;
     document.getElementById('modalTourName').innerText = name;
@@ -14,23 +12,18 @@ function openBookingModal(id, name, city, price, imageSrc) {
     document.getElementById('bookingGuests').value = "1";
     document.getElementById('bookingDate').value = "";
     
-
     calculateTotalPrice();
-
 
     document.getElementById('bookingModal').classList.add('active');
 }
-
 
 function closeBookingModal() {
     document.getElementById('bookingModal').classList.remove('active');
 }
 
-
 function calculateTotalPrice() {
     const guestsCount = parseInt(document.getElementById('bookingGuests').value);
     const totalPrice = currentTourPrice * guestsCount;
-    
     
     document.getElementById('modalTotalPrice').innerText = '¥' + totalPrice.toLocaleString();
 }
@@ -42,17 +35,46 @@ window.onclick = function(event) {
     }
 }
 
-
 document.addEventListener("DOMContentLoaded", () => {
 
-    // ===============================
+    // ===================================================
+    // Responsive Navbar 
+    // ===================================================
+    const menuToggle = document.getElementById('menuToggle');
+    const navContainer = document.getElementById('navContainer');
+
+    if (menuToggle && navContainer) {
+        menuToggle.addEventListener('click', function() {
+            // สลับเปิด-ปิดเมนู
+            navContainer.classList.toggle('active');
+            
+            // สลับไอคอนระหว่าง 3 ขีด (bi-list) กับกากบาท (bi-x)
+            const icon = menuToggle.querySelector('i');
+            if (navContainer.classList.contains('active')) {
+                icon.classList.replace('bi-list', 'bi-x');
+            } else {
+                icon.classList.replace('bi-x', 'bi-list');
+            }
+        });
+
+        // คลิกพื้นที่อื่นด้านนอกเพื่อปิดเมนูได้อัตโนมัติ
+        document.addEventListener('click', function(event) {
+            if (!navContainer.contains(event.target) && !menuToggle.contains(event.target)) {
+                navContainer.classList.remove('active');
+                const icon = menuToggle.querySelector('i');
+                if (icon) icon.classList.replace('bi-x', 'bi-list');
+            }
+        });
+    }
+
+    // ===================================================
     // Check Data
-    // ===============================
+    // ===================================================
     if (typeof tours === "undefined" || tours.length < 3) return;
 
-    // ===============================
+    // ===================================================
     // Hero Elements
-    // ===============================
+    // ===================================================
     const featuredImage = document.getElementById("featuredImage");
     const featuredTitle = document.getElementById("featuredTitle");
     const featuredDesc = document.getElementById("featuredDesc");
@@ -73,9 +95,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
     let current = 0;
 
-    // ===============================
+    // ===================================================
     // Update Hero
-    // ===============================
+    // ===================================================
     function updateHero() {
         const total = tours.length;
         const featured = tours[current];
@@ -109,33 +131,27 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    // ===============================
-    // Next
-    // ===============================
+    // ===================================================
+    // Next / Previous Events
+    // ===================================================
     nextBtn.addEventListener("click", () => {
         current = (current + 1) % tours.length;
         updateHero();
     });
 
-    // ===============================
-    // Previous
-    // ===============================
     prevBtn.addEventListener("click", () => {
         current = (current - 1 + tours.length) % tours.length;
         updateHero();
     });
 
-    // ===============================
-    // Click Small Card 1
-    // ===============================
+    // ===================================================
+    // Small Cards Click Events
+    // ===================================================
     smallCard1.addEventListener("click", () => {
         current = (current + 1) % tours.length;
         updateHero();
     });
 
-    // ===============================
-    // Click Small Card 2
-    // ===============================
     smallCard2.addEventListener("click", () => {
         current = (current + 2) % tours.length;
         updateHero();
