@@ -65,10 +65,10 @@ include "../includes/header.php";
                                     <div class="row g-0 align-items-center">
                                         <div class="col-md-4 col-lg-3">
                                             <div class="booking-img-wrapper">
-                                                <img src="../assets/images/<?php echo htmlspecialchars($res['tour_id']); ?>.png"
+                                                <img src="<?php echo $basePath . 'assets/images/' . htmlspecialchars($res['image']); ?>"
                                                      alt="<?php echo htmlspecialchars($res['name']); ?>"
                                                      class="booking-img"
-                                                     onerror="this.src='../assets/images/1.png'">
+                                                     onerror="this.src='<?php echo $basePath; ?>assets/images/1.png'">
                                             </div>
                                         </div>
                                         <div class="col-md-5 col-lg-6">

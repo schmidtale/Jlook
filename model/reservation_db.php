@@ -59,13 +59,13 @@ function get_reservations($user_id, $status = null) {
 
     // 2. Fetch the reservations JOINED with the tours table
     if ($status !== null) {
-        $query = 'SELECT r.*, t.name, t.city
+        $query = 'SELECT r.*, t.name, t.city, t.image
                   FROM reservations r
                   INNER JOIN tours t ON r.tour_id = t.id
                   WHERE r.user_id = :user_id AND r.status = :status
                   ORDER BY r.id DESC';
     } else {
-        $query = 'SELECT r.*, t.name, t.city
+        $query = 'SELECT r.*, t.name, t.city, t.image
                   FROM reservations r
                   INNER JOIN tours t ON r.tour_id = t.id
                   WHERE r.user_id = :user_id

@@ -66,11 +66,12 @@ include "../includes/header.php";
                     <?php foreach ($favorite_tours as $tour): ?>
                         <div class="fav-card">
                             <div class="card-image-section">
-                                <img src="../assets/images/<?php echo htmlspecialchars($tour['id']); ?>.png"
+                                <img src="<?php echo $basePath . 'assets/images/' . htmlspecialchars($tour['image']); ?>"
                                      alt="<?php echo htmlspecialchars($tour['name']); ?>"
-                                     onerror="this.src='../assets/images/1.png'">
+                                     onerror="this.src='<?php echo $basePath; ?>assets/images/1.png'">
 
-                                <form action="<?php echo $basePath; ?>controller/favorite_process.php" method="POST" class="d-inline">                                    <input type="hidden" name="tour_id" value="<?php echo $tour['id']; ?>">
+                                <form action="<?php echo $basePath; ?>controller/favorite_process.php" method="POST" class="d-inline">
+                                    <input type="hidden" name="tour_id" value="<?php echo $tour['id']; ?>">
                                     <input type="hidden" name="action" value="remove">
                                     <button type="submit" class="fav-heart-btn" title="Remove from favorites">
                                         <i class="bi bi-heart-fill text-danger"></i>
