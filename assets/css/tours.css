@@ -72,9 +72,7 @@ body{
 /* ==========================================
    Search
 ========================================== */
-/* ==========================================
-   Search (แก้งานซ้อนทับ & ปรับสไตล์ Glassmorphic)
-========================================== */
+
 
 .tour-search {
     display: flex;
@@ -125,7 +123,7 @@ body{
     color: rgba(255, 255, 255, 0.5);
 }
 
-/* เส้น divider คั่นกลาง */
+
 .search-divider {
     width: 1px;
     height: 26px;
@@ -133,7 +131,7 @@ body{
     margin: 0 12px;
 }
 
-/* ฝั่ง Sort Dropdown */
+
 .sort-wrapper {
     display: flex;
     align-items: center;
@@ -173,11 +171,11 @@ body{
 
 
 /* ==========================================
-   Layout & Sidebar Fix (แก้ให้ Filter สูงเท่ากับ Tour Cards)
+   Layout & Sidebar Fix 
 ========================================== */
 
 .tour-section {
-    padding: 30px 0 80px 0; /* ดึงเนื้อหาขึ้นมาใกล้อีกนิด */
+    padding: 30px 0 80px 0; 
 }
 
 .tour-sidebar {
@@ -187,7 +185,7 @@ body{
     border-radius: 28px;
     padding: 28px;
     position: relative;
-    top: 0 !important; /* 👈 แก้ลบ top: 100px ออก เพื่อให้จุดเริ่มสูงเท่ากับ Tour Cards */
+    top: 0 !important; 
     height: fit-content;
 }
 
