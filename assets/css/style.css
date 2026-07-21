@@ -1,3 +1,151 @@
+/* ===================================================
+   Navigation Bar & Header Styles
+=================================================== */
+
+.top-navbar {
+    position: absolute;
+    top: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90%;
+    max-width: 1400px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 1000;
+}
+
+.logo img {
+    width: 170px;
+    height: auto;
+}
+
+/* Glassmorphism Menu */
+.glass-menu {
+    display: flex;
+    gap: 40px;
+    padding: 15px 45px;
+    border-radius: 50px;
+    background: rgba(255, 255, 255, 0.12);
+    border: 1px solid rgba(255, 255, 255, 0.20);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+}
+
+.glass-menu a {
+    color: white;
+    text-decoration: none;
+    font-weight: 500;
+    transition: 0.3s;
+}
+
+.glass-menu a:hover,
+.glass-menu a.active {
+    color: #7EC8FF;
+}
+
+/* Buttons (Login & User Avatar) */
+.login-btn,
+.user-btn {
+    display: flex;
+    align-items: center;
+    padding: 8px 22px;
+    border-radius: 50px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(15px);
+    color: white;
+    text-decoration: none;
+    font-weight: 500;
+    transition: 0.3s;
+}
+
+.user-btn {
+    gap: 12px;
+    padding: 8px 18px;
+}
+
+.login-btn:hover,
+.user-btn:hover {
+    background: rgba(255, 255, 255, 0.15);
+    color: white;
+    transform: translateY(-2px);
+}
+
+/* Mobile Toggle Button */
+.menu-toggle {
+    display: none;
+    background: rgba(255, 255, 255, 0.12);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: white;
+    font-size: 24px;
+    padding: 8px 14px;
+    border-radius: 12px;
+    cursor: pointer;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    transition: 0.3s;
+}
+
+/* Responsive Navbar (Tablet & Mobile) */
+@media (max-width: 991px) {
+    .top-navbar {
+        width: 92%;
+        padding: 0;
+    }
+
+    .menu-toggle {
+        display: block;
+        order: 2;
+    }
+
+    .top-navbar .dropdown, 
+    .top-navbar .login-btn {
+        order: 3;
+    }
+    
+    .top-navbar .logo {
+        order: 1;
+    }
+
+    .nav-container {
+        position: absolute;
+        top: 80px;
+        left: 0;
+        width: 100%;
+        display: none; 
+        flex-direction: column;
+        z-index: 999;
+        order: 4;
+    }
+
+    .nav-container.active {
+        display: flex;
+    }
+
+    .glass-menu {
+        flex-direction: column;
+        width: 100%;
+        gap: 15px;
+        padding: 20px;
+        border-radius: 20px;
+        text-align: center;
+        background: rgba(11, 11, 11, 0.85);
+        box-shadow: 0 15px 30px rgba(0,0,0,0.5);
+    }
+
+    .glass-menu a {
+        display: block;
+        padding: 10px 0;
+        font-size: 16px;
+        border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+    
+    .glass-menu a:last-child {
+        border-bottom: none;
+    }
+}
 /* ===========================
    Footer
 =========================== */
@@ -105,4 +253,85 @@
 
     color:white;
 
+}
+
+/* ===================================================
+Responsive Navbar
+=================================================== */
+
+.menu-toggle {
+    display: none;
+    background: rgba(255, 255, 255, 0.12);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: white;
+    font-size: 24px;
+    padding: 8px 14px;
+    border-radius: 12px;
+    cursor: pointer;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    transition: 0.3s;
+}
+
+@media (max-width: 991px) {
+    .top-navbar {
+        width: 92%;
+        padding: 0;
+    }
+
+
+    .menu-toggle {
+        display: block;
+        order: 2;
+    }
+
+
+    .top-navbar .dropdown, 
+    .top-navbar .login-btn {
+        order: 3;
+    }
+    
+    .top-navbar .logo {
+        order: 1;
+    }
+
+
+    .nav-container {
+        position: absolute;
+        top: 80px;
+        left: 0;
+        width: 100%;
+        display: none; 
+        flex-direction: column;
+        z-index: 999;
+        order: 4;
+    }
+
+
+    .nav-container.active {
+        display: flex;
+    }
+
+
+    .glass-menu {
+        flex-direction: column;
+        width: 100%;
+        gap: 15px;
+        padding: 20px;
+        border-radius: 20px;
+        text-align: center;
+        background: rgba(11, 11, 11, 0.85);
+        box-shadow: 0 15px 30px rgba(0,0,0,0.5);
+    }
+
+    .glass-menu a {
+        display: block;
+        padding: 10px 0;
+        font-size: 16px;
+        border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+    
+    .glass-menu a:last-child {
+        border-bottom: none;
+    }
 }

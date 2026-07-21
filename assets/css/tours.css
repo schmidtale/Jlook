@@ -15,7 +15,7 @@ body{
 
     position:relative;
 
-    padding:140px 0 100px;
+    padding:60px 0 30px 0;
 
     background:
         linear-gradient(
@@ -35,7 +35,7 @@ body{
 
 .tour-hero-content{
 
-    max-width:760px;
+    max-width:800px;
 
 }
 
@@ -72,99 +72,123 @@ body{
 /* ==========================================
    Search
 ========================================== */
-
-.tour-search{
-
-    display:flex;
-
-    gap:20px;
-
-    align-items:center;
-
-    margin-top:35px;
-
-}
-
-.search-input{
-
-    flex:1;
-
-    display:flex;
-
-    align-items:center;
-
-    background:rgba(255,255,255,.10);
-
-    border:1px solid rgba(255,255,255,.18);
-
-    backdrop-filter:blur(20px);
-
-    border-radius:60px;
-
-    padding:15px 22px;
-
-}
-
-.search-input i{
-
-    color:#6ec1ff;
-
-    font-size:18px;
-
-    margin-right:15px;
-
-}
-
-.search-input input{
-
-    flex:1;
-
-    border:none;
-
-    outline:none;
-
-    background:transparent;
-
-    color:#fff;
-
-    font-size:15px;
-
-}
-
-.search-input input::placeholder{
-
-    color:rgba(255,255,255,.65);
-
-}
-
-#sortTour{
-
-    min-width:220px;
-
-    border:none;
-
-    outline:none;
-
-    border-radius:50px;
-
-    padding:15px 20px;
-
-    background:#fff;
-
-    font-weight:600;
-
-    cursor:pointer;
-
-}
-
 /* ==========================================
-   Layout
+   Search (แก้งานซ้อนทับ & ปรับสไตล์ Glassmorphic)
 ========================================== */
 
-.tour-section{
+.tour-search {
+    display: flex;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    border-radius: 50px; 
+    padding: 6px 12px 6px 20px;
+    max-width: 600px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+    transition: all 0.3s ease;
+}
 
-    padding:80px 0;
+.tour-search:focus-within {
+    border-color: rgba(88, 183, 255, 0.6);
+    box-shadow: 0 8px 32px rgba(88, 183, 255, 0.2);
+}
 
+/* ลบกล่องใสอันเก่าออก ให้กลมกลืนกับตัวแม่ */
+.search-input {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    background: transparent !important;
+    border: none !important;
+    padding: 8px 0 !important;
+    box-shadow: none !important;
+}
+
+.search-input i {
+    color: #58b7ff;
+    font-size: 18px;
+    margin-right: 12px;
+}
+
+.search-input input {
+    width: 100%;
+    border: none;
+    outline: none;
+    background: transparent;
+    color: #fff;
+    font-size: 15px;
+}
+
+.search-input input::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+/* เส้น divider คั่นกลาง */
+.search-divider {
+    width: 1px;
+    height: 26px;
+    background: rgba(255, 255, 255, 0.2);
+    margin: 0 12px;
+}
+
+/* ฝั่ง Sort Dropdown */
+.sort-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    position: relative;
+}
+
+.sort-icon {
+    color: #58b7ff;
+    font-size: 14px;
+}
+
+#sortTour {
+    min-width: unset !important;
+    background: transparent !important; /* ลบสีขาวออก */
+    border: none !important;
+    outline: none;
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    padding: 8px 24px 8px 4px !important;
+    
+    /* ซ่อน Arrow เดิมของเบราว์เซอร์ แล้วใช้ Arrow แบบมินิมอล */
+    appearance: none;
+    -webkit-appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23ffffff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e") !important;
+    background-repeat: no-repeat !important;
+    background-position: right center !important;
+    background-size: 14px !important;
+}
+
+#sortTour option {
+    background: #191919;
+    color: #fff;
+}
+
+
+/* ==========================================
+   Layout & Sidebar Fix (แก้ให้ Filter สูงเท่ากับ Tour Cards)
+========================================== */
+
+.tour-section {
+    padding: 30px 0 80px 0; /* ดึงเนื้อหาขึ้นมาใกล้อีกนิด */
+}
+
+.tour-sidebar {
+    background: rgba(255, 255, 255, .08);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, .15);
+    border-radius: 28px;
+    padding: 28px;
+    position: relative;
+    top: 0 !important; /* 👈 แก้ลบ top: 100px ออก เพื่อให้จุดเริ่มสูงเท่ากับ Tour Cards */
+    height: fit-content;
 }
 
 .tour-layout{
@@ -182,24 +206,6 @@ body{
 /* ==========================================
    Sidebar
 ========================================== */
-
-.tour-sidebar{
-
-    background:rgba(255,255,255,.08);
-
-    backdrop-filter:blur(20px);
-
-    border:1px solid rgba(255,255,255,.15);
-
-    border-radius:28px;
-
-    padding:28px;
-
-    position:sticky;
-
-    top:100px;
-
-}
 
 .tour-sidebar h3{
 
@@ -283,14 +289,11 @@ body{
    Tour Grid
 ========================================== */
 
-.tour-grid{
-
-    display:grid;
-
-    grid-template-columns:repeat(auto-fill,minmax(320px,1fr));
-
-    gap:30px;
-
+.tour-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); 
+    gap: 24px; 
+    margin-top: 20px;
 }
 
 /* ==========================================
@@ -348,14 +351,11 @@ body{
    Image
 ========================================== */
 
-.tour-image{
-
-    position:relative;
-
-    height:240px;
-
-    overflow:hidden;
-
+.tour-image {
+    width: 100%;
+    position: relative;
+    height: 140px; 
+    overflow: hidden;
 }
 
 .tour-image img{
@@ -376,70 +376,54 @@ body{
 
 }
 
-/* ==========================================
-   Favorite
-========================================== */
-
-.favorite-btn{
-
-    position:absolute;
-
-    top:15px;
-
-    right:15px;
-
-    width:45px;
-
-    height:45px;
-
-    border:none;
-
-    border-radius:50%;
-
-    background:rgba(255,255,255,.95);
-
-    display:flex;
-
-    justify-content:center;
-
-    align-items:center;
-
-    cursor:pointer;
-
-    z-index:5;
-
-    transition:.3s;
-
+/* ===================================================
+   Favorite Button (Glassmorphism - Matched with Home)
+=================================================== */
+.fav-btn {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    width: 38px; 
+    height: 38px;
+    border-radius: 50%;
+    
+    background: rgba(255, 255, 255, 0.25); 
+    backdrop-filter: blur(8px);          
+    -webkit-backdrop-filter: blur(8px);   
+    border: 1px solid rgba(255, 255, 255, 0.4); 
+    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    cursor: pointer;
+    
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1); 
+    transition: all 0.3s ease;
+    z-index: 10;
 }
 
-.favorite-btn i{
-
-    color:#ff4b73;
-
-    font-size:20px;
-
+.fav-btn .bi-heart {
+    color: #ffffff; 
+    filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.5)); 
 }
 
-.favorite-btn:hover{
-
-    background:#ff4b73;
-
+.fav-btn .bi-heart-fill {
+    color: #ff4a5a;
+    filter: drop-shadow(0px 1px 4px rgba(255, 74, 90, 0.4)); 
 }
 
-.favorite-btn:hover i{
-
-    color:white;
-
+.fav-btn:hover {
+    background: rgba(255, 255, 255, 0.4); 
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    transform: scale(1.1); 
 }
-
 /* ==========================================
    Body
 ========================================== */
 
-.tour-content-body{
-
-    padding:25px;
-
+.tour-content-body {
+    padding: 18px; 
 }
 
 .tour-city{
@@ -452,20 +436,17 @@ body{
 
     color:#79c8ff;
 
-    font-size:14px;
+    font-size:13px;
 
-    margin-bottom:12px;
+    margin-bottom:6px;
 
 }
 
 .tour-content-body h3{
-
     color:white;
-
-    font-size:24px;
-
-    margin-bottom:15px;
-
+    font-size:18px;
+    margin-bottom:10px;
+    line-height: 1.3;
 }
 
 .tour-content-body p{
@@ -486,19 +467,16 @@ body{
 
 .tour-price{
 
-    margin:20px 0;
-
+    margin:12px 0;
     color:white;
-
-    font-size:28px;
-
+    font-size:22px;
     font-weight:700;
 
 }
 
 .tour-price span{
 
-    font-size:15px;
+    font-size:13px;
 
     font-weight:400;
 
@@ -636,77 +614,117 @@ body{
 
 }
 
-/* ==========================================
-   Booking Modal Overlay & Animation
-========================================== */
+/* ===================================================
+   Seat Info Styles 
+=================================================== */
+.seat-info {
+    margin-top: 8px;
+    margin-bottom: 15px;
+    padding: 8px 12px;         
+    border-radius: 8px;         
+    background: rgba(255, 255, 255, .06);
+    border: 1px solid rgba(255, 255, 255, .1);
+    display: flex;        
+    align-items: center;
+    justify-content: center;
+    gap: 6px;                  
+    color: white;
+    font-size: 12px;        
+    font-weight: 500;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.seat-info i {
+    font-size: 14px;             
+}
+
+/* ===================================================
+   Booking Modal Overlay 
+=================================================== */
 .booking-modal-overlay {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
-    height: 100vh;
-    background: rgba(0, 0, 0, 0.75);
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
     backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
     display: flex;
     align-items: center;
     justify-content: center;
     z-index: 9999;
     opacity: 0;
-    visibility: hidden;
-    transition: all 0.3s ease;
-    padding: 20px;
+    pointer-events: none;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* แสดง Modal เมื่อมี class active */
 .booking-modal-overlay.active {
     opacity: 1;
-    visibility: visible;
+    pointer-events: auto;
 }
 
 .booking-modal-card {
-    background: #222;
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: rgba(11, 11, 11, 0.65);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    width: 850px;
+    max-width: 90%;
     border-radius: 24px;
-    max-width: 800px;
-    width: 100%;
-    position: relative;
     overflow: hidden;
-    box-shadow: 0 25px 50px rgba(0,0,0,0.5);
-    transform: scale(0.9);
-    transition: transform 0.3s ease;
+    position: relative;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    transform: scale(0.9) translateY(20px);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .booking-modal-overlay.active .booking-modal-card {
-    transform: scale(1);
+    transform: scale(1) translateY(0);
 }
 
 .close-modal-btn {
     position: absolute;
-    top: 15px;
-    right: 20px;
-    background: transparent;
+    top: 20px;
+    right: 25px;
+    background: none;
     border: none;
-    color: #fff;
-    font-size: 32px;
+    font-size: 28px;
+    color: rgba(255, 255, 255, 0.5);
     cursor: pointer;
     z-index: 10;
+    transition: all 0.2s;
+}
+
+.close-modal-btn:hover { 
+    color: #ff4a5a; 
+    transform: rotate(90deg);
 }
 
 .booking-modal-body {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
+    display: flex;
+    flex-wrap: wrap;
 }
 
 .modal-left-summary {
-    background: #181818;
-    padding: 30px;
+    flex: 1 1 350px;
+    background: #0B0B0B; 
+    color: #ffffff;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border-right: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 .modal-tour-img-wrap {
-    height: 180px;
-    border-radius: 16px;
+    width: 100%;
+    height: 190px;
+    border-radius: 14px;
     overflow: hidden;
-    margin-bottom: 20px;
+    margin-bottom: 25px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.4);
 }
 
 .modal-tour-img-wrap img {
@@ -715,36 +733,135 @@ body{
     object-fit: cover;
 }
 
+.modal-city-tag {
+    background: rgba(255, 255, 255, 0.1);
+    color: #ffd369;
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+}
+
+.modal-tour-info h3 {
+    margin: 15px 0 30px 0;
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 1.4;
+    color: #ffffff;
+}
+
+.modal-base-price small { color: rgba(255,255,255,0.4); font-size: 13px; }
+.modal-base-price p { font-size: 36px; font-weight: 700; color: #ffd369; margin: 5px 0 0 0; }
+
 .modal-right-form {
-    padding: 30px;
+    flex: 1 2 450px;
+    padding: 45px;
+    background: rgba(11, 11, 11, 0.2); 
+}
+
+.modal-right-form h3 { font-size: 24px; color: #ffffff; margin-bottom: 8px; font-weight: 600; }
+.form-lead { color: rgba(255, 255, 255, 0.5); font-size: 14px; margin-bottom: 30px; }
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 14px;
+    display: block;
+    margin-bottom: 8px;
+}
+
+.form-group label i {
+    color: #ffd369;
+    margin-right: 5px;
 }
 
 .form-control-custom {
     width: 100%;
-    padding: 12px 16px;
-    border-radius: 10px;
-    background: rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    color: #fff;
-    margin-top: 6px;
+    padding: 14px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    font-size: 15px;
+    color: #ffffff;
+    box-sizing: border-box;
+    transition: all 0.3s;
 }
+
+.form-control-custom:focus {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: #ffd369; 
+    outline: none;
+    box-shadow: 0 0 10px rgba(255, 211, 105, 0.2);
+}
+
+.form-control-custom::-webkit-calendar-picker-indicator {
+    filter: invert(1);
+}
+
+.form-control-custom option {
+    background: #0B0B0B; 
+    color: #fff;
+}
+
+.total-price-display {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    padding: 18px 24px;
+    border-radius: 14px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 25px;
+    margin-bottom: 25px;
+}
+
+.total-price-display span { font-weight: 500; color: rgba(255, 255, 255, 0.5); }
+.total-price-display strong { font-size: 28px; color: #38d996; font-weight: 700; }
 
 .confirm-booking-btn {
     width: 100%;
-    padding: 14px;
-    border-radius: 12px;
-    background: #3B82F6;
-    color: white;
+    padding: 16px;
+    background: #38d996;
+    color: #0b0b0b; 
     border: none;
-    font-weight: 600;
-    margin-top: 15px;
-    transition: 0.3s;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 8px 24px rgba(56, 217, 150, 0.3);
+    transition: all 0.3s;
 }
 
-.confirm-booking-btn:hover {
-    background: #2563eb;
+.confirm-booking-btn:hover { 
+    background: #2ecc71; 
+    transform: translateY(-2px);
+    box-shadow: 0 12px 28px rgba(46, 204, 113, 0.4);
 }
 
+@media (max-width: 768px) {
+    .booking-modal-card {
+        width: 95%;
+        max-height: 90vh;
+        overflow-y: auto; 
+    }
+    .booking-modal-body {
+        flex-direction: column; 
+    }
+    .modal-left-summary {
+        border-right: none;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        padding: 25px;
+    }
+    .modal-right-form {
+        padding: 25px;
+    }
+}
 @media(max-width: 768px) {
     .booking-modal-body {
         grid-template-columns: 1fr;
