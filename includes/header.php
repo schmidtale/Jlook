@@ -4,8 +4,12 @@ if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
 
-?>
 
+if (!isset($basePath)) {
+    $basePath = "";
+}
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -13,7 +17,8 @@ if (session_status() == PHP_SESSION_NONE) {
 
     <meta charset="UTF-8">
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0">
 
     <title><?= $pageTitle ?? "Jlook" ?></title>
 
@@ -25,13 +30,17 @@ if (session_status() == PHP_SESSION_NONE) {
     <link rel="stylesheet"
         href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
-<!-- Global CSS -->
-<link rel="stylesheet" href="<?= $basePath ?>assets/css/style.css">
+    <!-- Global CSS -->
+    <link rel="stylesheet"
+        href="<?= $basePath ?>assets/css/style.css">
 
-<!-- Page CSS -->
-<?php if (isset($pageCSS)): ?>
-    <link rel="stylesheet" href="<?= $pageCSS ?>">
-<?php endif; ?>
+    <!-- Page CSS -->
+    <?php if (!empty($pageCSS)): ?>
+
+        <link rel="stylesheet"
+            href="<?= $pageCSS ?>">
+
+    <?php endif; ?>
 
 </head>
 
