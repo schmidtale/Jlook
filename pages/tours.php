@@ -27,8 +27,7 @@ if (!empty($my_favs)) {
 
 include '../includes/header.php';
 ?>
-
-<link rel="stylesheet" href="../assets/css/style.css">
+<link rel="stylesheet" href="../assets/css/home.css">
 
 <?php include "../includes/navbar.php"; ?>
 
