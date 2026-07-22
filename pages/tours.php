@@ -250,7 +250,7 @@ include '../includes/header.php';
                             <label for="bookingDate">
                                 <i class="bi bi-calendar3"></i> Travel Date
                             </label>
-                            <input type="date" id="bookingDate" name="travel_date" class="form-control-custom" required>
+                            <input type="date" id="bookingDate" name="travel_date" class="form-control-custom" min="<?php echo date('Y-m-d'); ?>" required>
                         </div>
 
                         <div class="form-group mb-4">

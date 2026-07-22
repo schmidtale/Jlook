@@ -20,10 +20,10 @@ $basePath = "";
 
 if (isset($_SESSION['user_id'])) {
     $user_id = $_SESSION['user_id'];
-    
 
-    $my_favs = search_favorites($user_id, '', 'recent'); 
-    
+
+    $my_favs = search_favorites($user_id, '', 'recent');
+
 
     if (!empty($my_favs)) {
         $user_fav_ids = array_column($my_favs, 'id');
@@ -341,10 +341,10 @@ if (isset($_SESSION['user_id'])) {
 
 
                     <button class="book-btn" onclick="openBookingModal(
-                        '<?= $tour['id']; ?>', 
-                        '<?= htmlspecialchars($tour['name'], ENT_QUOTES); ?>', 
-                        '<?= $tour['city']; ?>', 
-                        '<?= $tour['price_yen']; ?>', 
+                        '<?= $tour['id']; ?>',
+                        '<?= htmlspecialchars($tour['name'], ENT_QUOTES); ?>',
+                        '<?= $tour['city']; ?>',
+                        '<?= $tour['price_yen']; ?>',
                         'assets/images/<?= $tour['image']; ?>'
                     )">
                         Book Now
@@ -379,9 +379,9 @@ if (isset($_SESSION['user_id'])) {
             <?php foreach(array_slice($budget_tours, 0, 4) as $tour): ?>
             <?php
             $current_price = $tour['price_yen'];
-            
+
             $old_price = $current_price / 0.7;
-            
+
             $seat = $tour['available_seats'];
             if ($seat <= 5) {
                 $seatIcon = "bi-fire"; $seatText = "Only $seat Seats Left"; $seatColor = "#ff5a5f";
@@ -428,10 +428,10 @@ if (isset($_SESSION['user_id'])) {
 
 
                     <button class="book-btn" onclick="openBookingModal(
-                        '<?= $tour['id']; ?>', 
-                        '<?= htmlspecialchars($tour['name'], ENT_QUOTES); ?>', 
-                        '<?= $tour['city']; ?>', 
-                        '<?= $tour['price_yen']; ?>', 
+                        '<?= $tour['id']; ?>',
+                        '<?= htmlspecialchars($tour['name'], ENT_QUOTES); ?>',
+                        '<?= $tour['city']; ?>',
+                        '<?= $tour['price_yen']; ?>',
                         'assets/images/<?= $tour['image']; ?>'
                     )">
                         Book Now
@@ -475,7 +475,7 @@ if (isset($_SESSION['user_id'])) {
 
                     <div class="form-group mb-3">
                         <label for="bookingDate"><i class="bi bi-calendar3"></i> Travel Date</label>
-                        <input type="date" id="bookingDate" name="travel_date" class="form-control-custom" required>
+                        <input type="date" id="bookingDate" name="travel_date" class="form-control-custom" min="<?php echo date('Y-m-d'); ?>" required>
                     </div>
 
 
