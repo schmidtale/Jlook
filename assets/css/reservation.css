@@ -202,16 +202,6 @@ body {
     border-color: white;
 }
 
-.support-link {
-    color: #3B82F6;
-    transition: 0.3s;
-}
-
-.support-link:hover {
-    color: #60A5FA;
-}
-
-
 /* ===========================
    Tablet
 =========================== */

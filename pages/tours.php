@@ -115,10 +115,6 @@ include '../includes/header.php';
                         <input type="range" min="5000" max="50000" value="50000">
                         <span>Up to ¥50,000</span>
                     </div>
-
-                    <button class="filter-btn">
-                        Apply Filters
-                    </button>
                 </aside>
 
                 <!-- Tour Cards Area -->
