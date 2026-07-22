@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once "../model/database.php"; // ปรับ path ให้ตรงกับโครงสร้างโปรเจกต์ของคุณ
+require_once "../model/database.php";
 
 
 if (!isset($_SESSION['user_id'])) {
@@ -23,10 +23,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     try {
-        global $db; 
-        
+        global $db;
 
-        $db_instance = isset($db) ? $db : $conn; 
+
+        $db_instance = isset($db) ? $db : $conn;
 
         if (!$db_instance) {
             throw new Exception("Database connection variable not found.");
@@ -45,26 +45,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             exit();
         }
 
-    
+
 
         $total_price = $tour['price_yen'] * $guests;
 
 
-        $query_insert = "INSERT INTO reservations (tour_id, user_id, reservation_date, number_of_guests, total_price_yen, status) 
+        $query_insert = "INSERT INTO reservations (tour_id, user_id, reservation_date, number_of_guests, total_price_yen, status)
                          VALUES (:tour_id, :user_id, :reservation_date, :number_of_guests, :total_price_yen, 'confirmed')";
 
         $stmt_insert = $db_instance->prepare($query_insert);
         $stmt_insert->bindValue(':tour_id', $tour_id);
         $stmt_insert->bindValue(':user_id', $user_id);
-        $stmt_insert->bindValue(':reservation_date', $travel_date); // วันที่เลือกจากฟอร์ม
-        $stmt_insert->bindValue(':number_of_guests', $guests);      // จำนวนแขก
-        $stmt_insert->bindValue(':total_price_yen', $total_price);  // ราคารวมเยน
+        $stmt_insert->bindValue(':reservation_date', $travel_date);
+        $stmt_insert->bindValue(':number_of_guests', $guests);
+        $stmt_insert->bindValue(':total_price_yen', $total_price);
 
         $stmt_insert->execute();
         $stmt_insert->closeCursor();
 
-        $query_update_tour = "UPDATE tours 
-        SET available_seats = available_seats - :guests 
+        $query_update_tour = "UPDATE tours
+        SET available_seats = available_seats - :guests
         WHERE id = :tour_id";
 
         $stmt_update_tour = $db_instance->prepare($query_update_tour);

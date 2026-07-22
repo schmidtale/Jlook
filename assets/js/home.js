@@ -1,7 +1,7 @@
 let currentTourPrice = 0;
 
 function openBookingModal(id, name, city, price, imageSrc) {
-    currentTourPrice = parseInt(price); 
+    currentTourPrice = parseInt(price);
 
     document.getElementById('modalTourId').value = id;
     document.getElementById('modalTourName').innerText = name;
@@ -11,7 +11,7 @@ function openBookingModal(id, name, city, price, imageSrc) {
 
     document.getElementById('bookingGuests').value = "1";
     document.getElementById('bookingDate').value = "";
-    
+
     calculateTotalPrice();
 
     document.getElementById('bookingModal').classList.add('active');
@@ -24,7 +24,7 @@ function closeBookingModal() {
 function calculateTotalPrice() {
     const guestsCount = parseInt(document.getElementById('bookingGuests').value);
     const totalPrice = currentTourPrice * guestsCount;
-    
+
     document.getElementById('modalTotalPrice').innerText = '¥' + totalPrice.toLocaleString();
 }
 
@@ -38,17 +38,15 @@ window.onclick = function(event) {
 document.addEventListener("DOMContentLoaded", () => {
 
     // ===================================================
-    // Responsive Navbar 
+    // Responsive Navbar
     // ===================================================
     const menuToggle = document.getElementById('menuToggle');
     const navContainer = document.getElementById('navContainer');
 
     if (menuToggle && navContainer) {
         menuToggle.addEventListener('click', function() {
-            // สลับเปิด-ปิดเมนู
             navContainer.classList.toggle('active');
-            
-            // สลับไอคอนระหว่าง 3 ขีด (bi-list) กับกากบาท (bi-x)
+
             const icon = menuToggle.querySelector('i');
             if (navContainer.classList.contains('active')) {
                 icon.classList.replace('bi-list', 'bi-x');
@@ -57,7 +55,6 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         });
 
-        // คลิกพื้นที่อื่นด้านนอกเพื่อปิดเมนูได้อัตโนมัติ
         document.addEventListener('click', function(event) {
             if (!navContainer.contains(event.target) && !menuToggle.contains(event.target)) {
                 navContainer.classList.remove('active');
