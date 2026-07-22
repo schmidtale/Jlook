@@ -130,12 +130,6 @@ include "../includes/header.php";
                             </div>
                         <?php endif; ?>
                     </div>
-
-                    <p class="text-center text-white-50 mt-5 mb-0">
-                        <i class="bi bi-info-circle me-1"></i> Can't find your booking?
-                        <a href="#" class="text-decoration-none support-link ms-1 fw-bold">Contact our support team</a>
-                    </p>
-
                 </div>
             </div>
         </div>
