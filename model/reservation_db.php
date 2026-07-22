@@ -3,10 +3,25 @@ function add_reservation($tour_id, $user_id, $reservation_date, $number_of_guest
     global $db;
 
     try {
-        // 1. Start a transaction
         $db->beginTransaction();
 
-        // 2. Deduct seats from the tour
+        // 1. Check current seat count
+        $check_query = 'SELECT available_seats FROM tours WHERE id = :tour_id FOR UPDATE';
+        $check_stmt = $db->prepare($check_query);
+        $check_stmt->bindValue(':tour_id', $tour_id);
+        $check_stmt->execute();
+        $tour = $check_stmt->fetch(PDO::FETCH_ASSOC);
+        $check_stmt->closeCursor();
+
+        if (!$tour || $tour['available_seats'] < $number_of_guests) {
+            $db->rollBack();
+            return [
+                'success' => false,
+                'message' => 'Not enough seats available for this tour.'
+            ];
+        }
+
+        // 2. Deduct seats
         $update_query = 'UPDATE tours
                          SET available_seats = available_seats - :guests
                          WHERE id = :tour_id';
@@ -16,7 +31,7 @@ function add_reservation($tour_id, $user_id, $reservation_date, $number_of_guest
         $update_stmt->execute();
         $update_stmt->closeCursor();
 
-        // 3. Insert the reservation
+        // 3. Insert reservation
         $query = 'INSERT INTO reservations (tour_id, user_id, reservation_date, number_of_guests, total_price_yen, status)
                   VALUES (:tour_id, :user_id, :reservation_date, :number_of_guests, :total_price_yen, "confirmed")';
         $statement = $db->prepare($query);
@@ -28,14 +43,17 @@ function add_reservation($tour_id, $user_id, $reservation_date, $number_of_guest
         $statement->execute();
         $statement->closeCursor();
 
-        // 4. If both actions succeeded, save them permanently
         $db->commit();
-        return true;
+
+        return ['success' => true];
 
     } catch (PDOException $e) {
         $db->rollBack();
         error_log("Reservation failed: " . $e->getMessage());
-        return false;
+        return [
+            'success' => false,
+            'message' => 'A database error occurred. Please try again.'
+        ];
     }
 }
 
