@@ -115,7 +115,7 @@ include "../includes/header.php";
                                                         <button type="submit" class="btn btn-action btn-outline-danger w-100">Cancel Tour</button>
                                                     </form>
                                                 <?php else: ?>
-                                                    <a href="tour-details.php?id=<?php echo $res['tour_id']; ?>" class="btn btn-action w-100">Book Again</a>
+                                                    <a href="tours.php" class="btn btn-action w-100">Book Again</a>
                                                 <?php endif; ?>
                                             </div>
                                         </div>
