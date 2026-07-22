@@ -5,20 +5,27 @@ if (session_status() === PHP_SESSION_NONE) {
 
 if (!isset($_SESSION['user_id'])) {
     header("Location: login.php");
-    
-    exit(); 
+    exit();
 }
+
 require_once '../model/database.php';
 require_once '../model/tour_db.php';
-
+require_once '../model/favorites_db.php';
 $pageTitle = "Tours | Jlook";
 $basePath = "../";
 $pageCSS = "../assets/css/tours.css";
 
+$user_id = $_SESSION['user_id'];
 $tours = get_tours();
 
-include '../includes/header.php';
+// Fetch user's favorite tour IDs from the database
+$user_fav_ids = [];
+$my_favs = search_favorites($user_id, '', 'recent');
+if (!empty($my_favs)) {
+    $user_fav_ids = array_column($my_favs, 'id');
+}
 
+include '../includes/header.php';
 ?>
 
 <link rel="stylesheet" href="../assets/css/style.css">
@@ -128,16 +135,16 @@ include '../includes/header.php';
                                     alt="<?= htmlspecialchars($tour['name']); ?>">
 
                                 <?php
-                                $user_fav_ids = $user_fav_ids ?? []; 
                                 $is_favorite = in_array($tour['id'], $user_fav_ids);
                                 $fav_action = $is_favorite ? 'remove' : 'add';
                                 $fav_icon = $is_favorite ? 'bi-heart-fill text-danger' : 'bi-heart';
+                                $fav_title = $is_favorite ? 'Remove from favorites' : 'Add to favorites';
                                 ?>
 
                                 <form action="../controller/favorite_process.php" method="POST" class="d-inline">
                                     <input type="hidden" name="tour_id" value="<?= $tour['id']; ?>">
                                     <input type="hidden" name="action" value="<?= $fav_action; ?>">
-                                    <button type="submit" class="fav-btn">
+                                    <button type="submit" class="fav-btn" title="<?= $fav_title; ?>">
                                         <i class="bi <?= $fav_icon; ?>"></i>
                                     </button>
                                 </form>

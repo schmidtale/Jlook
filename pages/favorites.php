@@ -1,5 +1,6 @@
 <?php
 session_start();
+
 $basePath = "../";
 
 if (!isset($_SESSION['user_id'])) {
@@ -87,7 +88,6 @@ include "../includes/header.php";
                                         <small>Start at</small>
                                         <h4>¥ <?php echo number_format($tour['price_yen']); ?></h4>
                                     </div>
-                                    <a href="tour-details.php?id=<?php echo $tour['id']; ?>" class="btn btn-detail">View Detail</a>
                                 </div>
                             </div>
                         </div>

@@ -20,5 +20,6 @@ if ($tour_id) {
     }
 }
 
-header("Location: ../pages/favorites.php");
+$redirect_url = $_SERVER['HTTP_REFERER'] ?? '../pages/favorites.php';
+header("Location: " . $redirect_url);
 exit();
